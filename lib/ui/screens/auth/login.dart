@@ -1,4 +1,5 @@
 import 'package:ecommerceapp/constant.dart';
+import 'package:ecommerceapp/controller/api.dart';
 import 'package:ecommerceapp/ui/screens/auth/reset_password.dart';
 import 'package:ecommerceapp/ui/screens/auth/signup.dart';
 import 'package:ecommerceapp/ui/widgets/custom_button.dart';
@@ -66,7 +67,7 @@ class LogIn extends StatelessWidget {
                             defaultTextFormField(
                               controller:emailController,
                                 keyboardType: TextInputType.emailAddress,
-                                onSaved: (value) => emailController = value ,
+                                 onSaved: (value) => emailController.text = value ,
                                 validator: (value){
                                   if (!(value.contains('@')) || !(value.contains('.com')) || value.isEmpty){
                                     return 'please enter correct email';
@@ -81,7 +82,7 @@ class LogIn extends StatelessWidget {
                             defaultTextFormField(controller:passwordController ,
                               keyboardType: TextInputType.visiblePassword,
                               obscure: true,
-                              onSaved: (value) => passwordController = value ,
+                              onSaved: (value) => passwordController.text = value ,
                               validator:  (value){
                                 if ( value.isEmpty || value.length <5 ){
                                   return 'please enter correct PassWord';
@@ -108,7 +109,11 @@ class LogIn extends StatelessWidget {
                                 width: double.infinity,
                                 child: defaultButton('SIGN IN',
                                     fun:(){
+                                  formKey.currentState!.save();
                                   if (formKey.currentState!.validate()){
+                                    login(email:emailController.text ,password:passwordController.text ).then((value){
+                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.toString())));
+                                    });
 
                                   }
                                     }  ))),

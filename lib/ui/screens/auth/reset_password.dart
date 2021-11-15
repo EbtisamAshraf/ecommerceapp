@@ -1,3 +1,5 @@
+import 'package:ecommerceapp/controller/api.dart';
+import 'package:ecommerceapp/ui/screens/auth/new_password.dart';
 import 'package:ecommerceapp/ui/widgets/custom_button.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text_form_field.dart';
@@ -7,23 +9,34 @@ import 'package:flutter/material.dart';
 import '../../../constant.dart';
 
 class ResetPassword extends StatelessWidget {
-   var emailController = TextEditingController();
-   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  var emailController = TextEditingController();
+  var codeController = TextEditingController();
+  var passwordController = TextEditingController();
+  var code = '2129';
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formK = GlobalKey<FormState>();
 
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Forgot Password',style: TextStyle(color: black),),
+          title: const Text(
+            'Forgot Password',
+            style: TextStyle(color: black),
+          ),
           backgroundColor: white,
           elevation: 0.0,
           leading: IconButton(
-            onPressed:(){
+            onPressed: () {
               Navigator.pop(context);
-            } ,
-            icon: const Icon(Icons.arrow_back , color: black,),),
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: black,
+            ),
+          ),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -45,13 +58,13 @@ class ResetPassword extends StatelessWidget {
                             defaultTextFormField(
                               controller: emailController,
                               keyboardType: TextInputType.emailAddress,
-                              onSaved: (value) => emailController = value ,
-                              validator: (value){
-                                if (!(value.contains('@')) || !(value.contains('.com')) || value.isEmpty){
+                              onSaved: (value) => emailController.text = value,
+                              validator: (value) {
+                                if (!(value.contains('@')) ||
+                                    !(value.contains('.com')) ||
+                                    value.isEmpty) {
                                   return 'please enter correct email';
-
-                                }
-                                else {
+                                } else {
                                   return null;
                                 }
                               },
@@ -62,27 +75,65 @@ class ResetPassword extends StatelessWidget {
                             Center(
                                 child: SizedBox(
                                     width: double.infinity,
-                                    child: defaultButton('Reset Password' ,
-                                        fun: (){
-                                      if (formKey.currentState!.validate()){
-                                        showDialog(context:context,builder: (BuildContext context) =>  AlertDialog(
-                                          title: const Text('Check your email for the verification code'),
-                                          content: defaultTextFormField(keyboardType: TextInputType.number),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(context, 'Cancel'),
-                                              child:  const Text('Cancel'),
-                                            ),
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(context, 'OK'),
-                                              child:  const Text('OK'),
-                                            ),
-                                          ],
+                                    child: defaultButton('Reset Password',
+                                        fun: () {
+                                      formKey.currentState!.save();
+                                      if (formKey.currentState!.validate()) {
+                                        verifyEmail(email: emailController.text).then((value) {
+                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value),));
+                                        });
+                                        verifyCode(email: emailController.text,code: code);
+                                        showDialog(context: context,
+                                            builder: (BuildContext context) =>
+                                                AlertDialog(
+                                                  title: const Text(
+                                                      'Check your email for the verification code'),
+                                                  content: defaultTextFormField(
+                                                    controller:
+                                                        codeController,
+                                                    onSaved: (value) =>
+                                                        codeController.text =
+                                                            value,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                  ),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(context,
+                                                              'Cancel'),
+                                                      child:
+                                                          const Text('Cancel'),
+                                                    ),
+                                                    TextButton(
+                                                      child: const Text('OK'),
+                                                      onPressed: () {
+                                                        verifyCode(email:emailController.text ,code: codeController.text ).then((value) {
+                                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value)));
+                                                          if (value != 'الكود الذي قمت بادخاله غير صحيح' ){
 
-                                        ));
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                        NewPassword(
+                                                                          email:
+                                                                          emailController.text,
+                                                                          code:
+                                                                          codeController.text,
+                                                                        )));
+                                                          }
+                                                          else {
+                                                            return '';
+                                                          }
+                                                        });
+
+                                                        }
+                                                    ),
+                                                  ],
+                                                ));
                                       }
-
-
                                     }))),
                           ],
                         ),
@@ -96,3 +147,5 @@ class ResetPassword extends StatelessWidget {
     );
   }
 }
+
+

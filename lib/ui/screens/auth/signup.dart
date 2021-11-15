@@ -1,3 +1,4 @@
+import 'package:ecommerceapp/controller/api.dart';
 import 'package:ecommerceapp/ui/widgets/custom_button.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text_form_field.dart';
@@ -11,6 +12,7 @@ class SignUp extends StatelessWidget {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var nameController = TextEditingController();
+  var phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,7 @@ class SignUp extends StatelessWidget {
                               subTitle('Name' ),
                               defaultTextFormField(controller: nameController ,
                                   keyboardType: TextInputType.name,
-                                  onSaved: (value) => nameController = value ,
+                                  onSaved: (value) => nameController.text = value ,
                                 validator: (value){
                                   if (value.isEmpty){
                                     return 'please enter your name';
@@ -65,7 +67,7 @@ class SignUp extends StatelessWidget {
                               subTitle('Email'),
                               defaultTextFormField(controller: emailController,
                                 keyboardType: TextInputType.emailAddress,
-                                onSaved: (value) => emailController = value ,
+                                onSaved: (value) => emailController.text = value ,
                                 validator: (value){
                                   if (!(value.contains('@')) || !(value.contains('.com')) || value.isEmpty){
                                     return 'please enter correct email';
@@ -78,11 +80,27 @@ class SignUp extends StatelessWidget {
                               const SizedBox(
                                 height: 20,
                               ),
+                              subTitle('Phone' ),
+                              defaultTextFormField(controller: phoneController ,
+                                  keyboardType: TextInputType.phone,
+                                  onSaved: (value) => phoneController.text = value ,
+                                  validator: (value){
+                                    if (value.isEmpty){
+                                      return 'please enter your phone number';
+                                    }
+                                    else {
+                                      return null;
+                                    }
+                                  }
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
                               subTitle('Password'),
                               defaultTextFormField(controller: passwordController,
                                 keyboardType: TextInputType.visiblePassword,
                                 obscure: true,
-                                onSaved: (value) => passwordController = value ,
+                                onSaved: (value) => passwordController.text = value ,
                                 validator:  (value){
                                   if ( value.isEmpty || value.length <5 ){
                                     return 'please enter correct PassWord';
@@ -98,7 +116,14 @@ class SignUp extends StatelessWidget {
                                   child: SizedBox(
                                       width: double.infinity,
                                       child: defaultButton('SIGN UP' ,fun: (){
+                                        formKey.currentState!.save();
                                         if (formKey.currentState!.validate()){
+                                          signUp(name:nameController.text ,email: emailController.text , password: passwordController.text ,phone: phoneController.text).then((value) {
+                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text(value) ,));
+                                          });
+                                          print(nameController.text);
+                                          print(emailController.text);
+                                          print(passwordController.text);
 
                                         }
                                       }))),
