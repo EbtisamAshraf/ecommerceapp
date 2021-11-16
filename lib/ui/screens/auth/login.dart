@@ -12,6 +12,10 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:async/async.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+
+
+
 
 class LogIn extends StatelessWidget {
 
@@ -129,7 +133,7 @@ class LogIn extends StatelessWidget {
                    width: double.infinity,
                      child: outLineButton('Sign In with Facebook' ,
                        image: 'images/Icon_Facebook.svg' ,
-                     // fun: _handleSignInFace
+                      fun: _handleSignInFaceBook
      )
     ),
                 const SizedBox(height: 20,),
@@ -156,17 +160,21 @@ class LogIn extends StatelessWidget {
     }
   }
 
-  // Future<void> _handleSignInFace() async {
-  //   try {
-  //     final res = await fb.expressLogin();
-  //     if (res.status == FacebookLoginStatus.success) {
-  //       final FacebookAccessToken? accessToken = res.accessToken;
-  //       print('Access token: ${accessToken!.token}');
-  //     }
-  //   } catch (error) {
-  //     print(error);
-  //   }
-  // }
+  Future<void> _handleSignInFaceBook() async {
+    final LoginResult result = await FacebookAuth.instance.login();
+    if (result.status == LoginStatus.success) {
+      final AccessToken accessToken = result.accessToken!;
+    } else {
+      print(result.status);
+      print(result.message);
+    }
+
+
+  }
 
 
 }
+
+// final userData = await FacebookAuth.instance.getUserData();
+//    final  facebookAuthCredential = FacebookAuthProvider.credential(LoginResult.accessToken!.token);
+//    await FacebookAuth.instance.signInWithCredential(facebookAuthCredential);
