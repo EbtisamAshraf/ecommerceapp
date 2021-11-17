@@ -1,4 +1,5 @@
 import 'package:ecommerceapp/constant.dart';
+import 'package:ecommerceapp/controller/shared_pref.dart';
 import 'package:ecommerceapp/ui/screens/auth/login.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
@@ -12,6 +13,8 @@ import 'package:async/async.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
  await Firebase.initializeApp();
+ await SharedPref.init();
+
   runApp(const MyApp());
 }
 
