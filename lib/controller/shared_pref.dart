@@ -13,6 +13,11 @@ class SharedPref {
   static dynamic getData({required String key}) async {
     return  pref.get(key);
   }
+  static dynamic getDataString({required String key}) async {
+    return  pref.getString(key);
+  }
+
+
 
   static Future <bool> saveData({required String key , required dynamic value}) async {
 

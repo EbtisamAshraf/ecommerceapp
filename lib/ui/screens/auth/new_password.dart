@@ -1,9 +1,12 @@
-import 'package:ecommerceapp/controller/api.dart';
+import 'package:ecommerceapp/controller/auth_controller/auth_api.dart';
+import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
+import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/ui/screens/auth/login.dart';
 import 'package:ecommerceapp/ui/widgets/custom_button.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constant.dart';
 
@@ -18,6 +21,7 @@ class NewPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final C = Provider.of<MyProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: white,
@@ -48,11 +52,11 @@ class NewPassword extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          title('New Password '),
+                          title('New Password ',textColor(context, C.isDark)),
                           const SizedBox(
                             height: 40,
                           ),
-                          subTitle('Password'),
+                          subTitle('Password', textColor(context, C.isDark)),
                           defaultTextFormField(
                             controller: passwordController,
                             keyboardType: TextInputType.visiblePassword,
@@ -71,7 +75,7 @@ class NewPassword extends StatelessWidget {
                           ),
                           Center(
                               child: SizedBox(
-                                  width: double.infinity,
+                                  width: MediaQuery.of(context).size.width,
                                   child: defaultButton('Done', fun: () {
                                     formKey.currentState!.save();
                                     if (formKey.currentState!.validate()) {

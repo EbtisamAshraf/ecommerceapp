@@ -1,14 +1,26 @@
+import 'package:ecommerceapp/model/auth_model/login_model.dart';
+import 'package:ecommerceapp/model/auth_model/profile_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-Future<String> login({email, password}) async {
+
+Future login({email, password}) async {
   var url = Uri.parse('https://student.valuxapps.com/api/login');
   var response = await http.post(url,
       headers: {'lang': 'ar'}, body: {'email': email, 'password': password});
+  var responseBody = jsonDecode(response.body);
+  LogInModel logInModel=  LogInModel.fromMap(responseBody);
+      // print('$responseBody');
+      return logInModel;
+}
 
-  var responseBody = jsonDecode(response.body)['message'];
-  print('responseBody  $responseBody');
-  return responseBody;
+Future logOut({var token}) async {
+  var url = Uri.parse('https://student.valuxapps.com/api/logout');
+  var response = await http.post(url,
+      headers: {'lang': 'ar', 'Authorization': token.toString()},);
+  var responseBody = jsonDecode(response.body);
+
+      return responseBody;
 }
 
 Future<String> signUp({email, password, name, phone}) async {
@@ -71,3 +83,12 @@ Future<String> resetPassword({email, code, password}) async {
 
   return responseBody;
 }
+
+Future profile({var token}) async {
+  var url = Uri.parse('https://student.valuxapps.com/api/profile');
+  var response = await http.get(url ,headers:{'lang': 'ar','Content-Type': 'application/json',
+    'Authorization': token.toString()} );
+  var responseBody = jsonDecode(response.body)['data'];
+  return responseBody;
+}
+

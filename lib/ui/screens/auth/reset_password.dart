@@ -1,10 +1,13 @@
-import 'package:ecommerceapp/controller/api.dart';
+import 'package:ecommerceapp/controller/auth_controller/auth_api.dart';
+import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
+import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/ui/screens/auth/new_password.dart';
 import 'package:ecommerceapp/ui/widgets/custom_button.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text_form_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constant.dart';
 
@@ -19,6 +22,7 @@ class ResetPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final C = Provider.of<MyProvider>(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -54,7 +58,7 @@ class ResetPassword extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            subTitle('Email'),
+                            subTitle('Email' ,textColor(context, C.isDark)),
                             defaultTextFormField(
                               controller: emailController,
                               keyboardType: TextInputType.emailAddress,
@@ -74,7 +78,7 @@ class ResetPassword extends StatelessWidget {
                             ),
                             Center(
                                 child: SizedBox(
-                                    width: double.infinity,
+                                    width: MediaQuery.of(context).size.width,
                                     child: defaultButton('Reset Password',
                                         fun: () {
                                       formKey.currentState!.save();
@@ -111,7 +115,6 @@ class ResetPassword extends StatelessWidget {
                                                         verifyCode(email:emailController.text ,code: codeController.text ).then((value) {
                                                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value)));
                                                           if (value != 'الكود الذي قمت بادخاله غير صحيح' ){
-
                                                             Navigator.push(
                                                                 context,
                                                                 MaterialPageRoute(

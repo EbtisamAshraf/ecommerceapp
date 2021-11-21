@@ -6,7 +6,10 @@ Widget defaultTextFormField({
   var validator,
   TextInputType? keyboardType,
   var onSaved,
-  bool obscure = false
+  bool obscure = false,
+  ValueChanged<String>? onChanged,
+  Widget? suffixIcon,
+
 
 }){
 
@@ -16,7 +19,10 @@ Widget defaultTextFormField({
     keyboardType: keyboardType ,
     onSaved: onSaved,
     obscureText: obscure,
-
+    onChanged: onChanged,
+    decoration: InputDecoration(
+      suffixIcon: suffixIcon,
+    ),
 
   );
 }

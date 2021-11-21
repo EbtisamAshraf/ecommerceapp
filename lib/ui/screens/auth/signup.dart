@@ -1,12 +1,16 @@
-import 'package:ecommerceapp/controller/api.dart';
+import 'package:ecommerceapp/controller/auth_controller/auth_api.dart';
+import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
+import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/ui/widgets/custom_button.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
-
+import 'package:country_code_picker/country_code_picker.dart';
+import 'package:provider/provider.dart';
 import '../../../constant.dart';
 
 class SignUp extends StatelessWidget {
+
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   var emailController = TextEditingController();
@@ -16,6 +20,7 @@ class SignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final C = Provider.of<MyProvider>(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -44,11 +49,11 @@ class SignUp extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              title('Sign Up '),
-                              const SizedBox(
+                              title('Sign Up ' , textColor(context, C.isDark),),
+                               const SizedBox(
                                 height: 40,
                               ),
-                              subTitle('Name' ),
+                              subTitle('Name' , textColor(context, C.isDark)),
                               defaultTextFormField(controller: nameController ,
                                   keyboardType: TextInputType.name,
                                   onSaved: (value) => nameController.text = value ,
@@ -64,7 +69,7 @@ class SignUp extends StatelessWidget {
                               const SizedBox(
                                 height: 20,
                               ),
-                              subTitle('Email'),
+                              subTitle('Email' ,textColor(context, C.isDark)),
                               defaultTextFormField(controller: emailController,
                                 keyboardType: TextInputType.emailAddress,
                                 onSaved: (value) => emailController.text = value ,
@@ -80,23 +85,48 @@ class SignUp extends StatelessWidget {
                               const SizedBox(
                                 height: 20,
                               ),
-                              subTitle('Phone' ),
-                              defaultTextFormField(controller: phoneController ,
-                                  keyboardType: TextInputType.phone,
-                                  onSaved: (value) => phoneController.text = value ,
-                                  validator: (value){
-                                    if (value.isEmpty){
-                                      return 'please enter your phone number';
-                                    }
-                                    else {
-                                      return null;
-                                    }
-                                  }
+                              subTitle('Phone', textColor(context, C.isDark) ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    flex: 2,
+                                      child:CountryCodePicker(
+                                        initialSelection: 'eg',
+                                        favorite: ['+02','eg'],
+                                        showCountryOnly: false,
+                                        showOnlyCountryWhenClosed: false,
+                                        alignLeft: false,
+                                        hideMainText: true,
+                                        onChanged:(val){
+                                          C.buildCountryCode(val.toString());
+                                        }
+                                      )) ,
+                                   Expanded(
+                                    flex: 1,
+                                    child: Text(C.countryCode),
+                                       ),
+                                  Expanded(
+                                    flex: 4,
+                                    child: defaultTextFormField(
+                                     controller: phoneController,
+                                        keyboardType: TextInputType.phone,
+                                        onSaved: (value) => phoneController.text = value ,
+                                        validator: (value){
+                                          if (value.isEmpty){
+                                            return 'please enter your phone number';
+                                          }
+                                          else {
+                                            return null;
+                                          }
+                                        },
+                                    ),
+                                  ),
+                                ],
                               ),
                               const SizedBox(
                                 height: 20,
                               ),
-                              subTitle('Password'),
+                              subTitle('Password', textColor(context, C.isDark)),
                               defaultTextFormField(controller: passwordController,
                                 keyboardType: TextInputType.visiblePassword,
                                 obscure: true,
@@ -114,15 +144,20 @@ class SignUp extends StatelessWidget {
                               ),
                               Center(
                                   child: SizedBox(
-                                      width: double.infinity,
+                                      width:MediaQuery.of(context).size.width,
                                       child: defaultButton('SIGN UP' ,fun: (){
                                         formKey.currentState!.save();
                                         if (formKey.currentState!.validate()){
-                                          signUp(name:nameController.text ,email: emailController.text , password: passwordController.text ,phone: phoneController.text).then((value) {
+                                          signUp(name:nameController.text ,
+                                              email: emailController.text ,
+                                              password: passwordController.text ,
+                                              phone: C.countryCode.toString() + phoneController.text
+                                              ).then((value) {
                                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text(value) ,));
                                           });
                                           print(nameController.text);
                                           print(emailController.text);
+                                          print(C.countryCode.toString() + phoneController.text);
                                           print(passwordController.text);
 
                                         }
@@ -139,4 +174,6 @@ class SignUp extends StatelessWidget {
       ),
     );
   }
+
+
 }
