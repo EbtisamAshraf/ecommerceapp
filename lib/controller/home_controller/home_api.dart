@@ -20,3 +20,17 @@ Future getBanners() async {
  // print('$responseBody');
   return responseBody;
 }
+Future getAboutUs() async {
+
+  var url = Uri.parse('https://student.valuxapps.com/api/settings');
+  var response = await http.get(url);
+  var responseBody = jsonDecode(response.body)['data'];
+
+  return responseBody;
+}
+Future getFAQ() async {
+  var url = Uri.parse('https://student.valuxapps.com/api/faqs');
+  var response = await http.get(url);
+  var responseBody = jsonDecode(response.body)['data']['data'];
+  return responseBody;
+}

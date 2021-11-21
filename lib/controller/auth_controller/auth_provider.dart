@@ -3,6 +3,8 @@ import 'package:ecommerceapp/model/auth_model/login_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 
 

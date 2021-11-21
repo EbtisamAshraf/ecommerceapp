@@ -3,6 +3,8 @@ import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/controller/shared_pref.dart';
 import 'package:ecommerceapp/ui/screens/auth/login.dart';
+import 'package:ecommerceapp/ui/screens/home/settings/about_us_screen.dart';
+import 'package:ecommerceapp/ui/screens/home/settings/faq_screen.dart';
 import 'package:ecommerceapp/ui/screens/home/settings/profile_screen.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -121,7 +123,15 @@ class SettingsScreen extends StatelessWidget  {
               buildCard(
                   context: context,
                   text: 'about us',
-                  image: 'images/Icon_Alert.svg'),
+                  image: 'images/Icon_Alert.svg',
+                onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => AboutUsScreen()));}
+              ),
+              buildCard(
+                  context: context,
+                  text: 'FAQ',
+                  image: 'images/Icon_Alert.svg',
+                  onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => FAQScreen()));}
+              ),
               GestureDetector(
                 onTap: () {
 
