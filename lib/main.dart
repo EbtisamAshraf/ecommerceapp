@@ -37,6 +37,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // var testDarkMode = isDarkMode?? Provider.of<MyProvider>(context ).isDark;
+    final C = Provider.of<MyProvider>(context);
+    // C.getToken(token.toString());
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'E Commerce',
@@ -47,7 +49,7 @@ class MyApp extends StatelessWidget {
           appBarTheme: const AppBarTheme(
               backgroundColor: Colors.white,
               elevation: 0.0,
-              iconTheme: IconThemeData(color:Colors.black)
+              iconTheme: IconThemeData(color:Colors.black),
           ),
 
           floatingActionButtonTheme:const FloatingActionButtonThemeData(
@@ -79,7 +81,13 @@ class MyApp extends StatelessWidget {
               selectedItemColor: Colors.green ,elevation: 20.0, backgroundColor: Colors.black45
           ),
       cardColor: Colors.black,
-        iconTheme: IconThemeData(color: Colors.white)
+        iconTheme: const IconThemeData(color: Colors.white, ),
+        buttonTheme: const ButtonThemeData(buttonColor: Colors.white,disabledColor: Colors.white ,
+            textTheme:ButtonTextTheme.primary , ) ,
+        primaryIconTheme: const IconThemeData(color: Colors.white, ),
+        outlinedButtonTheme: OutlinedButtonThemeData(style: ButtonStyle(backgroundColor:MaterialStateProperty.all(white) )),
+        dialogBackgroundColor: Colors.black,
+
       ),
 
       themeMode:  Provider.of<MyProvider>(context).isDark == false   ? ThemeMode.light :  ThemeMode.dark,

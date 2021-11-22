@@ -92,3 +92,17 @@ Future profile({var token}) async {
   return responseBody;
 }
 
+Future<String> updateProfile({ name, phone ,token ,}) async {
+  var url = Uri.parse('https://student.valuxapps.com/api/update-profile');
+  var response = await http.put(url, headers: {
+    'lang': 'ar',
+    'Content-Type': 'application/json',
+    'Authorization': token.toString(),
+  }, body: {
+    'name': name,
+    'phone': phone,
+  });
+  var responseBody = jsonDecode(response.body)['message'];
+  return responseBody;
+}
+

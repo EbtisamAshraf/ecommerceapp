@@ -34,3 +34,15 @@ Future getFAQ() async {
   var responseBody = jsonDecode(response.body)['data']['data'];
   return responseBody;
 }
+Future getCategories() async {
+  var url = Uri.parse('https://student.valuxapps.com/api/categories');
+  var response = await http.get(url);
+  var responseBody = jsonDecode(response.body)['data']['data'];
+  return responseBody;
+}
+Future getHomeData() async {
+  var url = Uri.parse('https://student.valuxapps.com/api/home');
+  var response = await http.get(url);
+  var responseBody = jsonDecode(response.body)['data']['products'];
+  return responseBody;
+}

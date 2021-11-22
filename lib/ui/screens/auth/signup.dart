@@ -24,13 +24,13 @@ class SignUp extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: white,
+          backgroundColor: textColor(context, !C.isDark ,),
           elevation: 0.0,
           leading: IconButton(
             onPressed:(){
               Navigator.pop(context);
             } ,
-            icon: const Icon(Icons.arrow_back , color: black,),),
+            icon:  Icon(Icons.arrow_back , color: textColor(context, C.isDark ,),),),
         ),
         body: Center(
           child: SingleChildScrollView(
@@ -39,7 +39,7 @@ class SignUp extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                      color: Colors.white,
+                      color: textColor(context, !C.isDark ,),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Form(
@@ -91,6 +91,7 @@ class SignUp extends StatelessWidget {
                                   Expanded(
                                     flex: 2,
                                       child:CountryCodePicker(
+                                        dialogBackgroundColor: textColor(context, !C.isDark ,),
                                         initialSelection: 'eg',
                                         favorite: ['+02','eg'],
                                         showCountryOnly: false,

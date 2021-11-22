@@ -14,6 +14,8 @@ import 'package:provider/provider.dart';
 import '../../../../constant.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'order_history_screen.dart';
+
 class SettingsScreen extends StatelessWidget  {
 
   @override
@@ -115,7 +117,11 @@ class SettingsScreen extends StatelessWidget  {
               buildCard(
                   context: context,
                   text: 'Order History',
-                  image: 'images/Icon_History.svg'),
+                  image: 'images/Icon_History.svg',
+                  onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => OrderHistoryScreen()));}
+
+              ),
+
               buildCard(
                   context: context,
                   text: 'language',

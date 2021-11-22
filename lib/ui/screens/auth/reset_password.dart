@@ -26,19 +26,19 @@ class ResetPassword extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
+          title:  Text(
             'Forgot Password',
-            style: TextStyle(color: black),
+            style: TextStyle(color: textColor(context, C.isDark ,)),
           ),
-          backgroundColor: white,
+          backgroundColor: textColor(context, !C.isDark ,),
           elevation: 0.0,
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: const Icon(
+            icon:  Icon(
               Icons.arrow_back,
-              color: black,
+              color: textColor(context, C.isDark ,),
             ),
           ),
         ),
@@ -48,7 +48,7 @@ class ResetPassword extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                    color: Colors.white,
+                    color:  textColor(context, !C.isDark ,),
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Form(

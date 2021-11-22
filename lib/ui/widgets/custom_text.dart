@@ -49,4 +49,52 @@ Widget largeText(String text , Color? color ,{TextAlign txtAlign = TextAlign.sta
     maxLines: 1,
   );
 }
+Widget proText(String text ,Color? color, {TextAlign txtAlign = TextAlign.start}){
 
+  return Text(text,style:  TextStyle(
+    color: color,
+    fontSize: 14,
+
+  ),
+    textAlign: txtAlign,
+    maxLines: 1,
+    overflow: TextOverflow.ellipsis,
+  );
+}
+
+Widget smallText(String text ,Color? color, {TextAlign txtAlign = TextAlign.start}){
+
+  return Text(text,style:  TextStyle(
+    color: color,
+    fontSize: 12,
+
+  ),
+    textAlign: txtAlign,
+    maxLines: 1,
+    overflow: TextOverflow.ellipsis,
+  );
+}
+Widget smallGreyText(String text , {TextAlign txtAlign = TextAlign.start}){
+
+  return Text(text,style:  const TextStyle(
+    color: Colors.grey,
+    fontSize: 12,
+
+  ),
+    textAlign: txtAlign,
+    maxLines: 1,
+    overflow: TextOverflow.ellipsis,
+  );
+}
+Widget vSmallGreyText(String text , {TextAlign txtAlign = TextAlign.start}){
+
+  return Text(text,style:  const TextStyle(
+    color: Colors.grey,
+    fontSize: 10,
+
+  ),
+    textAlign: txtAlign,
+    maxLines: 1,
+    overflow: TextOverflow.ellipsis,
+  );
+}

@@ -76,7 +76,7 @@ class LogIn extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                      color: Colors.white,
+                      color: textColor(context, !C.isDark ,),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Form(
@@ -155,7 +155,7 @@ class LogIn extends StatelessWidget {
                                       login(email:emailController.text ,password:passwordController.text ).then((value){
                                         LogInModel val =  value;
                                         SharedPref.saveData(key: 'token', value: val.data!.token) ;
-                                        C.getToken(val.data!.token.toString());
+                                         C.getToken(val.data!.token.toString());
                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(val.message.toString())));
                                         Navigator.push(context, MaterialPageRoute(builder: (context)=> MainScreen()));
 

@@ -1,3 +1,4 @@
+import 'package:ecommerceapp/constant.dart';
 import 'package:ecommerceapp/controller/auth_controller/auth_api.dart';
 import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
@@ -23,13 +24,13 @@ class ProfileScreen extends StatelessWidget {
                 Stack(
                   children: [
                     CircleAvatar(radius: 75,backgroundImage: snapshot.data == null? NetworkImage('https://clipartpng.com/?173,pink-flower-png'): NetworkImage(snapshot.data['image'] ), ),
-                    CircleAvatar(radius: 20,child: IconButton(icon:const Icon(Icons.add_a_photo) ,onPressed: (){},),)
+                    CircleAvatar(radius: 20,child: IconButton(icon:const Icon(Icons.add_a_photo, ) ,onPressed: (){},),)
                   ],
                 ),
                 const SizedBox(height: 20,),
-                ListTile(leading: const Icon(Icons.subtitles_sharp),title: midText('Name' ,textColor(context, C.isDark)),subtitle:largeText(snapshot.data['name'] , textColor(context, C.isDark)) ,trailing: IconButton(icon: const Icon(Icons.edit) ,onPressed:(){} ,),),
-                ListTile( leading: const Icon(Icons.smartphone_outlined),title: midText('phone' ,textColor(context, C.isDark)),subtitle:largeText(snapshot.data['phone'] , textColor(context, C.isDark)) ,trailing: IconButton(icon: const Icon(Icons.edit) ,onPressed:(){} ,),),
-                ListTile( leading: const Icon(Icons.email), title: midText('Email' , textColor(context, C.isDark)),subtitle:largeText(snapshot.data['email'] , textColor(context, C.isDark)) ,),
+                ListTile(leading: const Icon(Icons.subtitles_sharp, color: greyDark,),title: midText('Name' ,textColor(context, C.isDark)),subtitle:largeText(snapshot.data['name'] , textColor(context, C.isDark)) ,trailing: IconButton(icon: const Icon(Icons.edit ,color: greyDark,) ,onPressed:(){} ,),),
+                ListTile( leading: const Icon(Icons.smartphone_outlined, color: greyDark,),title: midText('phone' ,textColor(context, C.isDark)),subtitle:largeText(snapshot.data['phone'] , textColor(context, C.isDark)) ,trailing: IconButton(icon: const Icon(Icons.edit ,color: greyDark,) ,onPressed:(){} ,),),
+                ListTile( leading: const Icon(Icons.email , color: greyDark,), title: midText('Email' , textColor(context, C.isDark)),subtitle:largeText(snapshot.data['email'] , textColor(context, C.isDark)) ,),
 
               ],
             );
