@@ -1,6 +1,6 @@
 import 'package:ecommerceapp/constant.dart';
 import 'package:ecommerceapp/controller/auth_controller/auth_api.dart';
-import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
+import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,9 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final C = Provider.of<MyProvider>(context );
+
     return Scaffold(
       appBar: AppBar(title: midText('My Profile',textColor(context, C.isDark ,)),centerTitle: true,),
       body: Padding(

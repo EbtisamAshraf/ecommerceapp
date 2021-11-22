@@ -1,5 +1,5 @@
 import 'package:ecommerceapp/controller/auth_controller/auth_api.dart';
-import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
+import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/ui/screens/auth/new_password.dart';
 import 'package:ecommerceapp/ui/widgets/custom_button.dart';
@@ -22,7 +22,9 @@ class ResetPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final C = Provider.of<MyProvider>(context);
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(

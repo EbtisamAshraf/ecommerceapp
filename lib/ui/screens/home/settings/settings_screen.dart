@@ -1,5 +1,5 @@
 import 'package:ecommerceapp/controller/auth_controller/auth_api.dart';
-import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
+import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/controller/shared_pref.dart';
 import 'package:ecommerceapp/ui/screens/auth/login.dart';
@@ -10,10 +10,8 @@ import 'package:ecommerceapp/ui/widgets/custom_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../constant.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'order_history_screen.dart';
 
 class SettingsScreen extends StatelessWidget  {
@@ -22,45 +20,13 @@ class SettingsScreen extends StatelessWidget  {
   Widget build(BuildContext context) {
 
     final C = Provider.of<MyProvider>(context );
-    buildCard({required String text, required String image,required BuildContext context, GestureTapCallback? onTap}) {
-      return GestureDetector(
-        onTap: onTap,
-        child: Container(
-          height: MediaQuery.of(context).size.height * 0.07,
-          margin: EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: MediaQuery.of(context).size.height * 0.01),
-          child: Card(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                    margin: const EdgeInsets.symmetric(vertical: 3),
-                    // color: Colors.lightGreen[300],
-                    child: SvgPicture.asset(image)),
-                const SizedBox(
-                  width: 20,
-                ),
-                midText(text , textColor(context, C.isDark)),
-                const Expanded(child: SizedBox()),
-                const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 18,
-                ),
-                const SizedBox(
-                  width: 10,
-                )
-              ],
-            ),
-          ),
-        ),
-      );
-    }
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
           child: Column(
             children: [
+              // profile data
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: FutureBuilder(
@@ -92,6 +58,7 @@ class SettingsScreen extends StatelessWidget  {
                   ,
                 ),
               ),
+              // dark mode
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Row(
@@ -101,46 +68,46 @@ class SettingsScreen extends StatelessWidget  {
                     Switch(
                         value: C.isDark,
                         onChanged: (val) {
-                          C.changeMode();
+                          C.changeDarkMode();
                         } ,
                     ),
 
                   ],
                 ),
               ),
-              buildCard(
+              buildCardSettings(
                   context: context,
                   text: 'Edit Profile',
                   image: 'images/Icon_Edit-Profile.svg',
-                onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));},
+                onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));}, isDark: C.isDark,
               ),
-              buildCard(
+              buildCardSettings(
                   context: context,
                   text: 'Order History',
                   image: 'images/Icon_History.svg',
-                  onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => OrderHistoryScreen()));}
+                  onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => OrderHistoryScreen()));}, isDark:  C.isDark
 
               ),
 
-              buildCard(
+              buildCardSettings(
                   context: context,
                   text: 'language',
-                  image: 'images/Icon_Location.svg'),
-              buildCard(
+                  image: 'images/Icon_Location.svg', isDark:  C.isDark),
+              buildCardSettings(
                   context: context,
                   text: 'about us',
                   image: 'images/Icon_Alert.svg',
-                onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => AboutUsScreen()));}
+                onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => AboutUsScreen()));}, isDark:  C.isDark
               ),
-              buildCard(
+              buildCardSettings(
                   context: context,
                   text: 'FAQ',
                   image: 'images/Icon_Alert.svg',
-                  onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => FAQScreen()));}
+                  onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => FAQScreen()));}, isDark:  C.isDark
               ),
+              // log out
               GestureDetector(
                 onTap: () {
-
                   logOut(token: C.token);
                   SharedPref.removeData(key:'token' );
                   Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn()));

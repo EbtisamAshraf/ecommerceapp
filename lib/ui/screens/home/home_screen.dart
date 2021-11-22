@@ -1,5 +1,5 @@
 import 'package:ecommerceapp/constant.dart';
-import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
+import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/controller/home_controller/home_api.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
@@ -10,14 +10,18 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class HomeScreen extends StatelessWidget {
+
   final CarouselController _controller = CarouselController();
   @override
   Widget build(BuildContext context) {
+
     final C = Provider.of<MyProvider>(context);
+
     return SafeArea(
       child: Scaffold(
         body: Column(
           children: [
+            // banners
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: SizedBox(
@@ -43,12 +47,13 @@ class HomeScreen extends StatelessWidget {
                                       autoPlay: true,
                                       enlargeCenterPage: true,
                                       onPageChanged: (index, reason) {
-                                        C.onTapCarousel(index);
+                                        C.onPageChangedCarousel(index);
                                       }),
                                 ),
                 ),
               ),
             ),
+            // Categories
             SizedBox(
               height:  MediaQuery.of(context).size.height * 0.23,
               child: Padding(
@@ -110,6 +115,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
+            // Best Selling
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Container(

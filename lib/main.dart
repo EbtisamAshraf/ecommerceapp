@@ -12,7 +12,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:async/async.dart';
 import 'package:provider/provider.dart';
 
-import 'controller/auth_controller/auth_provider.dart';
+import 'controller/my_provider.dart';
 
 
 void main() async{
@@ -29,10 +29,7 @@ class MyApp extends StatelessWidget {
  late var token;
   var isDarkMode;
 
-
-
   MyApp  (this.token , this.isDarkMode);
-
 
   @override
   Widget build(BuildContext context) {

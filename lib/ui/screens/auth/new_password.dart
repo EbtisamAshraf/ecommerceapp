@@ -1,5 +1,5 @@
 import 'package:ecommerceapp/controller/auth_controller/auth_api.dart';
-import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
+import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/ui/screens/auth/login.dart';
 import 'package:ecommerceapp/ui/widgets/custom_button.dart';
@@ -11,9 +11,9 @@ import 'package:provider/provider.dart';
 import '../../../constant.dart';
 
 class NewPassword extends StatelessWidget {
+
   var passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   var email;
   var code;
 

@@ -1,4 +1,5 @@
-import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
+import 'package:ecommerceapp/constant.dart';
+import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/controller/home_controller/home_api.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
@@ -11,7 +12,9 @@ class AboutUsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final C = Provider.of<MyProvider>(context);
+
     return Scaffold(
       appBar: AppBar(title: midText('about us', textColor(context, C.isDark ,) ,),centerTitle: true,),
       body: SingleChildScrollView(
@@ -22,18 +25,18 @@ class AboutUsScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   children: [
-                    largeText('about', textColor(context, C.isDark)),
+                    largeText('about', green),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: midText(snapshot.data['about'], textColor(context, C.isDark ,) ,txtAlign: TextAlign.end),
                     ),
-                    SizedBox(height: 20,),
-                    largeText('terms', textColor(context, C.isDark)),
+                    const SizedBox(height: 20,),
+                    largeText('terms', green),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: midText(snapshot.data['terms'], textColor(context, C.isDark),txtAlign: TextAlign.end ),
                     ),
-                    SizedBox(height: 20,)
+                    const SizedBox(height: 20,)
                   ],
                 ),
               );

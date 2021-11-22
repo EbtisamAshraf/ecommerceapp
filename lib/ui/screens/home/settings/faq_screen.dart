@@ -1,11 +1,10 @@
-import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
+import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/controller/home_controller/home_api.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:accordion/accordion.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../constant.dart';
 
 
@@ -14,7 +13,9 @@ class FAQScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final C = Provider.of<MyProvider>(context );
+
     return Scaffold(
       appBar: AppBar(title: midText('fAQ',textColor(context, C.isDark ,)),centerTitle: true,),
       body: FutureBuilder(

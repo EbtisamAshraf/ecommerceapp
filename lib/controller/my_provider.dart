@@ -1,10 +1,6 @@
 import 'package:ecommerceapp/controller/shared_pref.dart';
-import 'package:ecommerceapp/model/auth_model/login_model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 
 
@@ -17,21 +13,14 @@ class MyProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  // // log in screen
-  //  late LogInModel saveDataAfterLogInTrue;
-  //
-  // showLogInData(value ){
-  //   saveDataAfterLogInTrue = value;
-  //   return saveDataAfterLogInTrue;
-  // }
 
   String token = 'c';
-
      String getToken(val){
       token = val ;
       print('token: $token');
       return token;
     }
+
 
  // sign up screen
   var countryCode ='+20' ;
@@ -41,25 +30,26 @@ class MyProvider with ChangeNotifier{
     notifyListeners();
   }
 
+
  // main screen
   int selectIndex=0;
-  onTap (index){
+  onTapBottomNavigationBar (index){
       selectIndex = index;
       notifyListeners();
   }
 
 
-  //  homescreen
+  //  home screen
 int _current = 0;
-  onTapCarousel (index){
+  onPageChangedCarousel (index){
     _current = index;
     notifyListeners();
   }
 
+
 // settings screen
   bool isDark = false ;
-
-  void changeMode (){
+  void changeDarkMode (){
     isDark= !isDark;
     SharedPref.saveData(key: 'isDark', value: isDark);
     notifyListeners();

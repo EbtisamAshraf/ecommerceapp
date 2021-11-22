@@ -1,4 +1,4 @@
-import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
+import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/ui/screens/home/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +23,7 @@ class MainScreen extends StatelessWidget {
             BottomNavigationBarItem(icon: Icon(Icons.settings),label: 'settings'),
           ],
           onTap: (i){
-            C.onTap(i);
+            C.onTapBottomNavigationBar(i);
           }
       ),
     );

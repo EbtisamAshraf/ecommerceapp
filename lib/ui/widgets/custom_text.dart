@@ -1,4 +1,4 @@
-import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
+import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

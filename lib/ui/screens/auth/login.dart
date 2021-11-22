@@ -1,7 +1,7 @@
 
 import 'package:ecommerceapp/constant.dart';
 import 'package:ecommerceapp/controller/auth_controller/auth_api.dart';
-import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
+import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/controller/shared_pref.dart';
 import 'package:ecommerceapp/model/auth_model/login_model.dart';
@@ -45,7 +45,6 @@ class LogIn extends StatelessWidget {
   Widget build(BuildContext context) {
     final C = Provider.of<MyProvider>(context);
     Future <bool> onBackPressed ( ) async{
-
       return await showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -213,7 +212,6 @@ class LogIn extends StatelessWidget {
       print(result.status);
       print(result.message);
     }
-
 
   }
 
