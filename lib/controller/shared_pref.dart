@@ -14,7 +14,11 @@ class SharedPref {
     return  pref.get(key);
   }
 
-  static dynamic getDataString({required String key}) async {
+  static bool? getBoolData({required String key})  {
+    return    pref.getBool(key);
+  }
+
+  static String? getStringData({required String key})  {
     return  pref.getString(key);
   }
 

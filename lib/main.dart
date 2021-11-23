@@ -19,10 +19,10 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
  await Firebase.initializeApp();
  await SharedPref.init();
- var token = SharedPref.getData(key: 'token') ;
- var isDarkMode =  SharedPref.getData(key:'isDark');
+ var token = SharedPref.getStringData(key: 'token') ;
+ var isDarkMode =  SharedPref.getBoolData(key:'isDark') ;
 
-  runApp(ChangeNotifierProvider<MyProvider>(create:(context) => MyProvider(),child:  MyApp(token ,isDarkMode )));
+  runApp(ChangeNotifierProvider<MyProvider>(create:(context) => MyProvider(),child:  MyApp(token ,isDarkMode ), ));
 }
 
 class MyApp extends StatelessWidget {
@@ -31,11 +31,12 @@ class MyApp extends StatelessWidget {
 
   MyApp  (this.token , this.isDarkMode);
 
+
   @override
   Widget build(BuildContext context) {
-    // var testDarkMode = isDarkMode?? Provider.of<MyProvider>(context ).isDark;
-    final C = Provider.of<MyProvider>(context);
-    // C.getToken(token.toString());
+    // final C = Provider.of<MyProvider>(context ,);
+     // C.changeDarkMode(isDarkMode: isDarkMode);
+     // C.getToken(token.toString());
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'E Commerce',

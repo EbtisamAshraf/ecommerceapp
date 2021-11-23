@@ -93,13 +93,10 @@ class SignUp extends StatelessWidget {
                                       child:CountryCodePicker(
                                         dialogBackgroundColor: textColor(context, !C.isDark ,),
                                         initialSelection: 'eg',
-                                        favorite: ['+02','eg'],
-                                        showCountryOnly: false,
-                                        showOnlyCountryWhenClosed: false,
-                                        alignLeft: false,
+                                        favorite: const ['+02','eg'],
                                         hideMainText: true,
                                         onChanged:(val){
-                                          C.buildCountryCode(val.toString());
+                                          C.buildCountryCode(val);
                                         }
                                       )) ,
                                    Expanded(

@@ -15,18 +15,19 @@ class MyProvider with ChangeNotifier{
 
 
   String token = 'c';
-     String getToken(val){
+  String getToken(val){
       token = val ;
-      print('token: $token');
+      // print('token: $token');
+      notifyListeners();
       return token;
     }
 
 
  // sign up screen
-  var countryCode ='+20' ;
+  var countryCode = '02'  ;
   buildCountryCode(value){
     countryCode = value; // make state
-    print(countryCode);
+    // print(countryCode);
     notifyListeners();
   }
 
@@ -49,10 +50,16 @@ int _current = 0;
 
 // settings screen
   bool isDark = false ;
-  void changeDarkMode (){
-    isDark= !isDark;
-    SharedPref.saveData(key: 'isDark', value: isDark);
-    notifyListeners();
+   changeDarkMode ({bool? isDarkMode}){
+    if (isDarkMode != null){
+      isDark = isDarkMode;
+    } else{
+      isDark= !isDark;
+      SharedPref.saveData(key: 'isDark', value: isDark);
+      notifyListeners();
+    }
+      // print('isDark: $isDark');
+
   }
 
 
