@@ -5,14 +5,11 @@ import 'package:ecommerceapp/controller/settings_controller/settings_provider.da
 import 'package:ecommerceapp/controller/shared_pref.dart';
 import 'package:ecommerceapp/ui/screens/auth/login.dart';
 import 'package:ecommerceapp/ui/screens/home/main_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'dart:io';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:async/async.dart';
 import 'package:provider/provider.dart';
 
 import 'controller/my_provider.dart';
@@ -100,14 +97,28 @@ class MyApp extends StatelessWidget {
       themeMode:  Provider.of<SettingsProvider>(context).isDark == false   ? ThemeMode.light :  ThemeMode.dark,
 
       home: AnimatedSplashScreen(
-        splash: Container(
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(
-                    'images/Content.png',
-                  ),
-                  fit: BoxFit.cover)),
+        splash: Padding(
+          padding: const EdgeInsets.all(40.0),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('images/icon.png' ,fit: BoxFit.scaleDown,),
+                 const SizedBox(height:30 ,),
+                 const Text('E Commerce' , style: TextStyle(color: Colors.green, fontSize: 35 , fontWeight: FontWeight.bold)),
+              ],
+            ),
+          ),
         ),
+        // Container(
+        //   decoration:
+        //   const BoxDecoration(
+        //       image: DecorationImage(
+        //           image: AssetImage(
+        //             'images/Content.png',
+        //           ),
+        //           fit: BoxFit.cover)),
+        // ),
         duration: 4000,
         nextScreen:  token == null ? LogIn() : MainScreen(),
         splashIconSize: double.infinity,

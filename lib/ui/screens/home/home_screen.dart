@@ -1,6 +1,5 @@
 import 'package:ecommerceapp/constant.dart';
 import 'package:ecommerceapp/controller/home_controller/home_provider.dart';
-import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/controller/home_controller/home_api.dart';
 import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
@@ -59,7 +58,7 @@ class HomeScreen extends StatelessWidget {
             ),
             // Categories
             SizedBox(
-              height:  MediaQuery.of(context).size.height * 0.23,
+              height:  MediaQuery.of(context).size.height * 0.25,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 10 ),
                 child: Column(
@@ -82,7 +81,7 @@ class HomeScreen extends StatelessWidget {
                           return snapshot.data == null
                               ? const Center(child: CircularProgressIndicator())
                               : Center(
-                                  child: Container(
+                                  child: SizedBox(
                                     height:  MediaQuery.of(context).size.height * 0.15,
                                     width: double.infinity,
                                     child: ListView.separated(
@@ -122,19 +121,17 @@ class HomeScreen extends StatelessWidget {
             // Best Selling
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Container(
-                 // color: Colors.red,
-              height:  MediaQuery.of(context).size.height *0.44,
+              child: SizedBox(
+              height:  MediaQuery.of(context).size.height *0.45,
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     midText( 'Best Selling', textColor( context, set.isDark, ), txtAlign: TextAlign.start),
-                    SizedBox(height: 15,),
-                    Container(
-                      // color: Colors.blue,
+                    const SizedBox(height: 15,),
+                    SizedBox(
                     width: MediaQuery.of(context).size.width,
-                    height:MediaQuery.of(context).size.height *0.38,
+                    height:MediaQuery.of(context).size.height *0.40,
                       child:FutureBuilder(
                          future: getHomeData(),
                              builder: (BuildContext context,  AsyncSnapshot<dynamic> snapshot) {
@@ -160,7 +157,7 @@ class HomeScreen extends StatelessWidget {
                                    ],
                                  ),
                                ),
-                               staggeredTileBuilder: (int index) =>  StaggeredTile.fit(2));
+                               staggeredTileBuilder: (int index) =>  const StaggeredTile.fit(2));
       }
 
                       ),
