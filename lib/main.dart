@@ -1,4 +1,7 @@
 import 'package:ecommerceapp/constant.dart';
+import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
+import 'package:ecommerceapp/controller/home_controller/home_provider.dart';
+import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
 import 'package:ecommerceapp/controller/shared_pref.dart';
 import 'package:ecommerceapp/ui/screens/auth/login.dart';
 import 'package:ecommerceapp/ui/screens/home/main_screen.dart';
@@ -22,7 +25,14 @@ void main() async{
  var token = SharedPref.getStringData(key: 'token') ;
  var isDarkMode =  SharedPref.getBoolData(key:'isDark') ;
 
-  runApp(ChangeNotifierProvider<MyProvider>(create:(context) => MyProvider(),child:  MyApp(token ,isDarkMode ), ));
+  runApp(MultiProvider(providers:
+  [
+    ChangeNotifierProvider<MyProvider>(create:(context) => MyProvider(),),
+    ChangeNotifierProvider<AuthProvider>(create:(context) => AuthProvider()),
+    ChangeNotifierProvider<HomeProvider>(create:(context) => HomeProvider(),),
+    ChangeNotifierProvider<SettingsProvider>(create:(context) => SettingsProvider()),
+  ],
+  child:  MyApp(token ,isDarkMode ), ));
 }
 
 class MyApp extends StatelessWidget {
@@ -87,8 +97,7 @@ class MyApp extends StatelessWidget {
         dialogBackgroundColor: Colors.black,
 
       ),
-
-      themeMode:  Provider.of<MyProvider>(context).isDark == false   ? ThemeMode.light :  ThemeMode.dark,
+      themeMode:  Provider.of<SettingsProvider>(context).isDark == false   ? ThemeMode.light :  ThemeMode.dark,
 
       home: AnimatedSplashScreen(
         splash: Container(

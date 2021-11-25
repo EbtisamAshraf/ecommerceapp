@@ -1,6 +1,8 @@
 import 'package:ecommerceapp/controller/auth_controller/auth_api.dart';
+import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
 import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
+import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
 import 'package:ecommerceapp/ui/widgets/custom_button.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text_form_field.dart';
@@ -20,17 +22,19 @@ class SignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final C = Provider.of<MyProvider>(context);
+    final auth = Provider.of<AuthProvider>(context);
+     final set = Provider.of<SettingsProvider>(context);
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: textColor(context, !C.isDark ,),
+          backgroundColor: textColor(context, !set.isDark ,),
           elevation: 0.0,
           leading: IconButton(
             onPressed:(){
               Navigator.pop(context);
             } ,
-            icon:  Icon(Icons.arrow_back , color: textColor(context, C.isDark ,),),),
+            icon:  Icon(Icons.arrow_back , color: textColor(context, set.isDark ,),),),
         ),
         body: Center(
           child: SingleChildScrollView(
@@ -39,7 +43,7 @@ class SignUp extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                      color: textColor(context, !C.isDark ,),
+                      color: textColor(context, !set.isDark ,),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Form(
@@ -49,11 +53,11 @@ class SignUp extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              title('Sign Up ' , textColor(context, C.isDark),),
+                              title('Sign Up ' , textColor(context, set.isDark),),
                                const SizedBox(
                                 height: 40,
                               ),
-                              subTitle('Name' , textColor(context, C.isDark)),
+                              subTitle('Name' , textColor(context, set.isDark)),
                               defaultTextFormField(controller: nameController ,
                                   keyboardType: TextInputType.name,
                                   onSaved: (value) => nameController.text = value ,
@@ -69,7 +73,7 @@ class SignUp extends StatelessWidget {
                               const SizedBox(
                                 height: 20,
                               ),
-                              subTitle('Email' ,textColor(context, C.isDark)),
+                              subTitle('Email' ,textColor(context, set.isDark)),
                               defaultTextFormField(controller: emailController,
                                 keyboardType: TextInputType.emailAddress,
                                 onSaved: (value) => emailController.text = value ,
@@ -85,23 +89,23 @@ class SignUp extends StatelessWidget {
                               const SizedBox(
                                 height: 20,
                               ),
-                              subTitle('Phone', textColor(context, C.isDark) ),
+                              subTitle('Phone', textColor(context, set.isDark) ),
                               Row(
                                 children: [
                                   Expanded(
                                     flex: 2,
                                       child:CountryCodePicker(
-                                        dialogBackgroundColor: textColor(context, !C.isDark ,),
+                                        dialogBackgroundColor: textColor(context, !set.isDark ,),
                                         initialSelection: 'eg',
                                         favorite: const ['+02','eg'],
                                         hideMainText: true,
                                         onChanged:(val){
-                                          C.buildCountryCode(val);
+                                          auth.buildCountryCode(val.toString());
                                         }
                                       )) ,
                                    Expanded(
                                     flex: 1,
-                                    child: Text(C.countryCode),
+                                    child: Text(auth.countryCode),
                                        ),
                                   Expanded(
                                     flex: 4,
@@ -124,7 +128,7 @@ class SignUp extends StatelessWidget {
                               const SizedBox(
                                 height: 20,
                               ),
-                              subTitle('Password', textColor(context, C.isDark)),
+                              subTitle('Password', textColor(context, set.isDark)),
                               defaultTextFormField(controller: passwordController,
                                 keyboardType: TextInputType.visiblePassword,
                                 obscure: true,
@@ -149,13 +153,13 @@ class SignUp extends StatelessWidget {
                                           signUp(name:nameController.text ,
                                               email: emailController.text ,
                                               password: passwordController.text ,
-                                              phone: C.countryCode.toString() + phoneController.text
+                                              phone: auth.countryCode.toString() + phoneController.text
                                               ).then((value) {
                                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text(value) ,));
                                           });
                                           print(nameController.text);
                                           print(emailController.text);
-                                          print(C.countryCode.toString() + phoneController.text);
+                                          print(auth.countryCode.toString() + phoneController.text);
                                           print(passwordController.text);
 
                                         }

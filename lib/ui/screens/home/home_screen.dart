@@ -1,7 +1,9 @@
 import 'package:ecommerceapp/constant.dart';
+import 'package:ecommerceapp/controller/home_controller/home_provider.dart';
 import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/controller/home_controller/home_api.dart';
+import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +17,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final C = Provider.of<MyProvider>(context);
+    final set = Provider.of<SettingsProvider>(context);
+    final home = Provider.of<HomeProvider>(context);
+
 
     return SafeArea(
       child: Scaffold(
@@ -47,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                                       autoPlay: true,
                                       enlargeCenterPage: true,
                                       onPageChanged: (index, reason) {
-                                        C.onPageChangedCarousel(index);
+                                        home.onPageChangedCarousel(index);
                                       }),
                                 ),
                 ),
@@ -65,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                         'Categories',
                         textColor(
                           context,
-                          C.isDark,
+                          set.isDark,
                         ),
                         txtAlign: TextAlign.start),
                     const SizedBox(
@@ -103,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                                               snapshot.data[index]['name'],
                                               textColor(
                                                 context,
-                                                C.isDark,
+                                                set.isDark,
                                               ))
                                         ],
                                       ),
@@ -125,7 +129,7 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    midText( 'Best Selling', textColor( context, C.isDark, ), txtAlign: TextAlign.start),
+                    midText( 'Best Selling', textColor( context, set.isDark, ), txtAlign: TextAlign.start),
                     SizedBox(height: 15,),
                     Container(
                       // color: Colors.blue,
@@ -147,7 +151,7 @@ class HomeScreen extends StatelessWidget {
                                      Image.network(snapshot.data[index]['image'] ),
                                      Padding(
                                        padding: const EdgeInsets.all(8.0),
-                                       child: proText(snapshot.data[index]['name'],textColor(context,C.isDark,),txtAlign: TextAlign.center ),
+                                       child: proText(snapshot.data[index]['name'],textColor(context,set.isDark,),txtAlign: TextAlign.center ),
                                      ),
                                      Padding(
                                        padding: const EdgeInsets.all(8.0),

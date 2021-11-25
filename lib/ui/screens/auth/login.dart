@@ -1,8 +1,10 @@
 
 import 'package:ecommerceapp/constant.dart';
 import 'package:ecommerceapp/controller/auth_controller/auth_api.dart';
+import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
 import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
+import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
 import 'package:ecommerceapp/controller/shared_pref.dart';
 import 'package:ecommerceapp/model/auth_model/login_model.dart';
 import 'package:ecommerceapp/ui/screens/auth/reset_password.dart';
@@ -43,7 +45,10 @@ class LogIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final C = Provider.of<MyProvider>(context);
+
+    final auth = Provider.of<AuthProvider>(context);
+    final set = Provider.of<SettingsProvider>(context);
+
     Future <bool> onBackPressed ( ) async{
       return await showDialog(
           context: context,
@@ -75,7 +80,7 @@ class LogIn extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                      color: textColor(context, !C.isDark ,),
+                      color: textColor(context, !set.isDark ,),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Form(
@@ -88,7 +93,7 @@ class LogIn extends StatelessWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  title('Welcome, ', textColor(context, C.isDark)),
+                                  title('Welcome, ', textColor(context, set.isDark)),
                                   TextButton(onPressed: (){
                                     Navigator.push(context, MaterialPageRoute(builder: (context)=> SignUp()));
                                   },
@@ -97,9 +102,9 @@ class LogIn extends StatelessWidget {
                                 ],
                               ),
                               const SizedBox(height: 10,),
-                              subTitle('Sign in to Continue' , textColor(context, C.isDark)),
+                              subTitle('Sign in to Continue' , textColor(context, set.isDark)),
                              const SizedBox(height: 40,),
-                              subTitle('Email', textColor(context, C.isDark)),
+                              subTitle('Email', textColor(context, set.isDark)),
                               defaultTextFormField(
                                 controller:emailController,
                                   keyboardType: TextInputType.emailAddress,
@@ -114,14 +119,14 @@ class LogIn extends StatelessWidget {
                                     }
                                   }, ),
                               const SizedBox(height: 20,),
-                              subTitle('Password' , textColor(context, C.isDark)),
+                              subTitle('Password' , textColor(context, set.isDark)),
                               defaultTextFormField(
-                                suffixIcon:  C.unHide ?
-                                IconButton( icon:  Icon(Icons.visibility),onPressed:C.showPassword ,) :
-                                IconButton( icon: Icon(Icons.visibility_off),onPressed:C.showPassword ,),
+                                suffixIcon:  auth.unHide ?
+                                IconButton( icon:  Icon(Icons.visibility),onPressed:auth.showPassword ,) :
+                                IconButton( icon: Icon(Icons.visibility_off),onPressed:auth.showPassword ,),
                                 controller:passwordController ,
                                 keyboardType: TextInputType.visiblePassword,
-                                obscure: C.unHide,
+                                obscure: auth.unHide,
                                 onSaved: (value) => passwordController.text = value ,
                                 validator:  (value){
                                   if ( value.isEmpty || value.length <5 ){
@@ -142,7 +147,7 @@ class LogIn extends StatelessWidget {
                                       onPressed: (){
                                         Navigator.push(context, MaterialPageRoute(builder: (context)=> ResetPassword()));
                                       },
-                                      child: subTitle('Forgot Password?' , textColor(context, C.isDark))),],
+                                      child: subTitle('Forgot Password?' , textColor(context, set.isDark))),],
                                 ),
                               const SizedBox(height: 20,),
                               Center(child: SizedBox(
@@ -154,7 +159,7 @@ class LogIn extends StatelessWidget {
                                       login(email:emailController.text ,password:passwordController.text ).then((value){
                                         LogInModel val =  value;
                                         SharedPref.saveData(key: 'token', value: val.data!.token) ;
-                                          C.getToken(val.data!.token.toString());
+                                        auth.getToken(val.data!.token.toString());
                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(val.message.toString())));
                                         Navigator.push(context, MaterialPageRoute(builder: (context)=> MainScreen()));
 

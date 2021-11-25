@@ -1,6 +1,7 @@
 import 'package:ecommerceapp/controller/auth_controller/auth_api.dart';
 import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
+import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
 import 'package:ecommerceapp/ui/screens/auth/new_password.dart';
 import 'package:ecommerceapp/ui/widgets/custom_button.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
@@ -23,16 +24,17 @@ class ResetPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final C = Provider.of<MyProvider>(context);
+    final set = Provider.of<SettingsProvider>(context);
+
 
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title:  Text(
             'Forgot Password',
-            style: TextStyle(color: textColor(context, C.isDark ,)),
+            style: TextStyle(color: textColor(context, set.isDark ,)),
           ),
-          backgroundColor: textColor(context, !C.isDark ,),
+          backgroundColor: textColor(context, !set.isDark ,),
           elevation: 0.0,
           leading: IconButton(
             onPressed: () {
@@ -40,7 +42,7 @@ class ResetPassword extends StatelessWidget {
             },
             icon:  Icon(
               Icons.arrow_back,
-              color: textColor(context, C.isDark ,),
+              color: textColor(context, set.isDark ,),
             ),
           ),
         ),
@@ -50,7 +52,7 @@ class ResetPassword extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                    color:  textColor(context, !C.isDark ,),
+                    color:  textColor(context, !set.isDark ,),
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Form(
@@ -60,7 +62,7 @@ class ResetPassword extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            subTitle('Email' ,textColor(context, C.isDark)),
+                            subTitle('Email' ,textColor(context, set.isDark)),
                             defaultTextFormField(
                               controller: emailController,
                               keyboardType: TextInputType.emailAddress,

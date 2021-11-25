@@ -1,6 +1,7 @@
 import 'package:ecommerceapp/constant.dart';
 import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
+import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +13,8 @@ class OrderHistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final C = Provider.of<MyProvider>(context );
+    final set = Provider.of<SettingsProvider>(context);
+
 
     return Scaffold(
       appBar: AppBar(),
@@ -39,8 +41,8 @@ class OrderHistoryScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 13.0),
                 child: Column(
                   children: [
-                    midText('Order Signed', textColor(context, C.isDark ,)),
-                    proText('Lagos State, Nigeria' ,textColor(context, C.isDark ,) )
+                    midText('Order Signed', textColor(context, set.isDark ,)),
+                    proText('Lagos State, Nigeria' ,textColor(context, set.isDark ,) )
                   ],
                 ),
               ),
@@ -66,8 +68,8 @@ class OrderHistoryScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 50.0),
                 child: Column(
                   children: [
-                    midText('Order Processed', textColor(context, C.isDark ,)),
-                    proText('Lagos State, Nigeria' ,textColor(context, C.isDark ,) )
+                    midText('Order Processed', textColor(context, set.isDark ,)),
+                    proText('Lagos State, Nigeria' ,textColor(context, set.isDark ,) )
                   ],
                 ),
               ),
@@ -94,8 +96,8 @@ class OrderHistoryScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 50.0),
                 child: Column(
                   children: [
-                    midText('Shipped', textColor(context, C.isDark ,)),
-                    proText('Lagos State, Nigeria' ,textColor(context, C.isDark ,) )
+                    midText('Shipped', textColor(context, set.isDark ,)),
+                    proText('Lagos State, Nigeria' ,textColor(context, set.isDark ,) )
                   ],
                 ),
               ),
@@ -114,8 +116,8 @@ class OrderHistoryScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 50.0),
                 child: Column(
                   children: [
-                    midText('Out for delivery', textColor(context, C.isDark ,)),
-                    proText('Edo State, Nigeria' ,textColor(context, C.isDark ,) )
+                    midText('Out for delivery', textColor(context, set.isDark ,)),
+                    proText('Edo State, Nigeria' ,textColor(context, set.isDark ,) )
                   ],
                 ),
               ),
@@ -135,8 +137,8 @@ class OrderHistoryScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 50.0),
                 child: Column(
                   children: [
-                    midText('Delivered', textColor(context, C.isDark ,)),
-                    proText('Edo State, Nigeria' ,textColor(context, C.isDark ,) )
+                    midText('Delivered', textColor(context, set.isDark ,)),
+                    proText('Edo State, Nigeria' ,textColor(context, set.isDark ,) )
                   ],
                 ),
               ),

@@ -1,6 +1,7 @@
 import 'package:ecommerceapp/controller/auth_controller/auth_api.dart';
 import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
+import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
 import 'package:ecommerceapp/ui/screens/auth/login.dart';
 import 'package:ecommerceapp/ui/widgets/custom_button.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
@@ -21,7 +22,8 @@ class NewPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final C = Provider.of<MyProvider>(context);
+    final set = Provider.of<SettingsProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: white,
@@ -52,11 +54,11 @@ class NewPassword extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          title('New Password ',textColor(context, C.isDark)),
+                          title('New Password ',textColor(context, set.isDark)),
                           const SizedBox(
                             height: 40,
                           ),
-                          subTitle('Password', textColor(context, C.isDark)),
+                          subTitle('Password', textColor(context, set.isDark)),
                           defaultTextFormField(
                             controller: passwordController,
                             keyboardType: TextInputType.visiblePassword,
