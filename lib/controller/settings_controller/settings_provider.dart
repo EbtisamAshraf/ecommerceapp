@@ -16,6 +16,27 @@ class SettingsProvider with ChangeNotifier{
     }
     // print('isDark: $isDark');
 
+
+
+  }
+
+
+  bool isArabic = false ;
+  var lang = Locale('en', 'EN');
+  var langApi = 'en';
+  changeLang(){
+    isArabic = !isArabic;
+    if (isArabic == true){
+      lang = Locale('ar', 'AR');
+      langApi= 'ar';
+    }
+    else {
+      lang = Locale('en', 'EN');
+      langApi= 'en';
+    }
+
+    notifyListeners();
+    return lang;
   }
 
 

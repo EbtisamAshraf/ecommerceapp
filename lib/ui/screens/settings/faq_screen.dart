@@ -21,7 +21,7 @@ class FAQScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: midText('fAQ',textColor(context, set.isDark ,)),centerTitle: true,),
       body: FutureBuilder(
-         future: getFAQ(),
+         future: getFAQ(set.langApi),
           builder:(BuildContext context,AsyncSnapshot<dynamic> snapshot){
           return snapshot.data == null ? const Center(child: CircularProgressIndicator()) :
           ListView.builder(

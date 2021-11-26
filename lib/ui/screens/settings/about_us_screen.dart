@@ -23,7 +23,7 @@ class AboutUsScreen extends StatelessWidget {
       appBar: AppBar(title: midText('about us', textColor(context, set.isDark ,) ,),centerTitle: true,),
       body: SingleChildScrollView(
         child: FutureBuilder(
-            future: getAboutUs(),
+            future: getAboutUs(set.langApi),
             builder:(BuildContext context,AsyncSnapshot<dynamic> snapshot){
               return snapshot.data == null ? const Center(child: CircularProgressIndicator()) :Padding(
                 padding: const EdgeInsets.all(20.0),

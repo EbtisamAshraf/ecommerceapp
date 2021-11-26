@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:ecommerceapp/controller/auth_controller/auth_api.dart';
 import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
@@ -35,7 +36,7 @@ class SettingsScreen extends StatelessWidget  {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: FutureBuilder(
-                  future: profile(token: auth.token),
+                  future: profile( set.langApi, token: auth.token),
                   builder:(BuildContext context,AsyncSnapshot<dynamic> snapshot){
                     return snapshot.data == null ? const Center(child: CircularProgressIndicator()) : Row(
                       children: [
@@ -80,6 +81,22 @@ class SettingsScreen extends StatelessWidget  {
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    midText('Arabic' ,textColor(context, set.isDark)),
+                    Switch(
+                        value: set.isArabic,
+                        onChanged: (val) {
+                         var x = context.locale = set.changeLang();
+                        } ,
+                    ),
+
+                  ],
+                ),
+              ),
               buildCardSettings(
                   context: context,
                   text: 'Edit Profile',
@@ -94,10 +111,7 @@ class SettingsScreen extends StatelessWidget  {
 
               ),
 
-              buildCardSettings(
-                  context: context,
-                  text: 'language',
-                  image: 'images/Icon_Location.svg', isDark:  set.isDark),
+             // buildCardSettings(context: context, text: 'language',image: 'images/Icon_Location.svg', isDark:  set.isDark),
               buildCardSettings(
                   context: context,
                   text: 'about us',
@@ -113,7 +127,7 @@ class SettingsScreen extends StatelessWidget  {
               // log out
               GestureDetector(
                 onTap: () {
-                  logOut(token: auth.token);
+                  logOut( set.langApi, token: auth.token);
                   SharedPref.removeData(key:'token' );
                   Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn()));
                 },

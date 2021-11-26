@@ -87,10 +87,10 @@ class ResetPassword extends StatelessWidget {
                                         fun: () {
                                       formKey.currentState!.save();
                                       if (formKey.currentState!.validate()) {
-                                        verifyEmail(email: emailController.text).then((value) {
+                                        verifyEmail( set.langApi, email: emailController.text).then((value) {
                                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value),));
                                         });
-                                        verifyCode(email: emailController.text,code: code);
+                                        verifyCode( set.langApi, email: emailController.text,code: code);
                                         showDialog(context: context,
                                             builder: (BuildContext context) =>
                                                 AlertDialog(
@@ -116,9 +116,9 @@ class ResetPassword extends StatelessWidget {
                                                     TextButton(
                                                       child: const Text('OK'),
                                                       onPressed: () {
-                                                        verifyCode(email:emailController.text ,code: codeController.text ).then((value) {
+                                                        verifyCode( set.langApi, email:emailController.text ,code: codeController.text ).then((value) {
                                                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value)));
-                                                          if (value != 'الكود الذي قمت بادخاله غير صحيح' ){
+                                                          if (value != 'الكود الذي قمت بادخاله غير صحيح' || value != 'The code you have entered is not valid'){
                                                             Navigator.push(
                                                                 context,
                                                                 MaterialPageRoute(

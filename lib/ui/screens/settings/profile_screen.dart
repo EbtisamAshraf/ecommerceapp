@@ -23,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: FutureBuilder(
-          future: profile(token: auth.token),
+          future: profile(  set.langApi,token: auth.token),
           builder:(BuildContext context,AsyncSnapshot<dynamic> snapshot){
             return snapshot.data == null ? const Center(child: CircularProgressIndicator()) : Column(
               children: [

@@ -150,7 +150,7 @@ class SignUp extends StatelessWidget {
                                       child: defaultButton('SIGN UP' ,fun: (){
                                         formKey.currentState!.save();
                                         if (formKey.currentState!.validate()){
-                                          signUp(name:nameController.text ,
+                                          signUp( set.langApi, name:nameController.text ,
                                               email: emailController.text ,
                                               password: passwordController.text ,
                                               phone: auth.countryCode.toString() + phoneController.text

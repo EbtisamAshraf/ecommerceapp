@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height:  MediaQuery.of(context).size.height * 0.15,
                 child: FutureBuilder(
-                  future: getBanners(),
+                  future: getBanners(set.langApi),
                   builder:
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) =>
                           snapshot.data == null
@@ -75,7 +75,7 @@ class HomeScreen extends StatelessWidget {
                       height: 20,
                     ),
                     FutureBuilder(
-                        future: getCategories(),
+                        future: getCategories(set.langApi),
                         builder: (BuildContext context,
                             AsyncSnapshot<dynamic> snapshot) {
                           return snapshot.data == null
@@ -122,7 +122,7 @@ class HomeScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: SizedBox(
-              height:  MediaQuery.of(context).size.height *0.45,
+              height:  MediaQuery.of(context).size.height *0.40,
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,9 +131,9 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(height: 15,),
                     SizedBox(
                     width: MediaQuery.of(context).size.width,
-                    height:MediaQuery.of(context).size.height *0.40,
+                    height:MediaQuery.of(context).size.height *0.33,
                       child:FutureBuilder(
-                         future: getHomeData(),
+                         future: getHomeData(set.langApi),
                              builder: (BuildContext context,  AsyncSnapshot<dynamic> snapshot) {
                            return snapshot.data == null
                                ? const Center(child: CircularProgressIndicator())

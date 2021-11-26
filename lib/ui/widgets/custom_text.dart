@@ -1,14 +1,10 @@
-import 'package:ecommerceapp/controller/my_provider.dart';
-import 'package:ecommerceapp/controller/fun.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../../constant.dart';
 
 Widget title(String text, Color? color ){
 
-  return Text(text,style:  TextStyle(
+  return Text(text.tr().toString(),style:  TextStyle(
     color: color,
     fontSize: 30,
     fontWeight: FontWeight.bold
@@ -16,7 +12,7 @@ Widget title(String text, Color? color ){
 }
 Widget midTitle(String text , Color? color){
 
-  return Text(text,style:  TextStyle(
+  return Text(text.tr().toString(),style:  TextStyle(
     color: color,
     fontSize: 26,
     fontWeight: FontWeight.w500
@@ -24,7 +20,7 @@ Widget midTitle(String text , Color? color){
 }
 Widget subTitle(String text ,Color? color, {TextAlign txtAlign = TextAlign.start}){
 
-  return Text(text,style:  TextStyle(
+  return Text(text.tr().toString(),style:  TextStyle(
     color: color,
     fontSize: 14,
   ),
@@ -32,7 +28,7 @@ Widget subTitle(String text ,Color? color, {TextAlign txtAlign = TextAlign.start
 }
 Widget midText(String text , Color? color ,{TextAlign txtAlign = TextAlign.start}){
 
-  return Text(text,style:  TextStyle(
+  return Text(text.tr().toString(),style:  TextStyle(
     color: color,
     fontSize: 18,
   ),
@@ -40,7 +36,7 @@ Widget midText(String text , Color? color ,{TextAlign txtAlign = TextAlign.start
 }
 Widget largeText(String text , Color? color ,{TextAlign txtAlign = TextAlign.start}){
 
-  return Text(text,style:  TextStyle(
+  return Text(text.tr().toString(),style:  TextStyle(
     color: color,
     fontSize: 22,
   ),
@@ -51,7 +47,7 @@ Widget largeText(String text , Color? color ,{TextAlign txtAlign = TextAlign.sta
 }
 Widget proText(String text ,Color? color, {TextAlign txtAlign = TextAlign.start}){
 
-  return Text(text,style:  TextStyle(
+  return Text(text.tr().toString(),style:  TextStyle(
     color: color,
     fontSize: 14,
 
@@ -61,10 +57,9 @@ Widget proText(String text ,Color? color, {TextAlign txtAlign = TextAlign.start}
     overflow: TextOverflow.ellipsis,
   );
 }
-
 Widget smallText(String text ,Color? color, {TextAlign txtAlign = TextAlign.start}){
 
-  return Text(text,style:  TextStyle(
+  return Text(text.tr().toString(),style:  TextStyle(
     color: color,
     fontSize: 12,
 
@@ -76,7 +71,7 @@ Widget smallText(String text ,Color? color, {TextAlign txtAlign = TextAlign.star
 }
 Widget smallGreyText(String text , {TextAlign txtAlign = TextAlign.start}){
 
-  return Text(text,style:  const TextStyle(
+  return Text(text.tr().toString(),style:  const TextStyle(
     color: Colors.grey,
     fontSize: 12,
 
@@ -88,7 +83,7 @@ Widget smallGreyText(String text , {TextAlign txtAlign = TextAlign.start}){
 }
 Widget vSmallGreyText(String text , {TextAlign txtAlign = TextAlign.start}){
 
-  return Text(text,style:  const TextStyle(
+  return Text(text.tr().toString(),style:  const TextStyle(
     color: Colors.grey,
     fontSize: 10,
 

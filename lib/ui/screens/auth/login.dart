@@ -122,8 +122,8 @@ class LogIn extends StatelessWidget {
                               subTitle('Password' , textColor(context, set.isDark)),
                               defaultTextFormField(
                                 suffixIcon:  auth.unHide ?
-                                IconButton( icon:  Icon(Icons.visibility),onPressed:auth.showPassword ,) :
-                                IconButton( icon: Icon(Icons.visibility_off),onPressed:auth.showPassword ,),
+                                IconButton( icon:  const Icon(Icons.visibility),onPressed:auth.showPassword ,) :
+                                IconButton( icon: const Icon(Icons.visibility_off),onPressed:auth.showPassword ,),
                                 controller:passwordController ,
                                 keyboardType: TextInputType.visiblePassword,
                                 obscure: auth.unHide,
@@ -156,7 +156,7 @@ class LogIn extends StatelessWidget {
                                       fun:(){
                                     formKey.currentState!.save();
                                     if (formKey.currentState!.validate()){
-                                      login(email:emailController.text ,password:passwordController.text ).then((value){
+                                      login( set.langApi, email:emailController.text ,password:passwordController.text ).then((value){
                                         LogInModel val =  value;
                                         SharedPref.saveData(key: 'token', value: val.data!.token) ;
                                         auth.getToken(val.data!.token.toString());

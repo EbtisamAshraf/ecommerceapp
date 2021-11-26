@@ -81,7 +81,7 @@ class NewPassword extends StatelessWidget {
                                   child: defaultButton('Done', fun: () {
                                     formKey.currentState!.save();
                                     if (formKey.currentState!.validate()) {
-                                      resetPassword(
+                                      resetPassword(  set.langApi,
                                           email: email,
                                           code: code,
                                           password: passwordController.text)

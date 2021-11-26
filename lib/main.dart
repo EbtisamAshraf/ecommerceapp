@@ -11,12 +11,14 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-
 import 'controller/my_provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 
 void main() async{
+
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
  await Firebase.initializeApp();
  await SharedPref.init();
  var token = SharedPref.getStringData(key: 'token') ;
@@ -29,7 +31,15 @@ void main() async{
     ChangeNotifierProvider<HomeProvider>(create:(context) => HomeProvider(),),
     ChangeNotifierProvider<SettingsProvider>(create:(context) => SettingsProvider()),
   ],
-  child:  MyApp(token ,isDarkMode ), ));
+  child:  EasyLocalization(child: MyApp(token ,isDarkMode ),
+    path:'resources/langs' ,
+    supportedLocales: const [
+      Locale('en', 'EN'),
+      Locale('ar', 'AR'),
+    ],
+    saveLocale: true,
+
+  ), ));
 }
 
 class MyApp extends StatelessWidget {
@@ -47,6 +57,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'E Commerce',
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       theme:ThemeData(
           textTheme: Typography.blackHelsinki,
           primarySwatch: Colors.green,
