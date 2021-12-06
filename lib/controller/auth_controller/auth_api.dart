@@ -2,6 +2,8 @@ import 'package:ecommerceapp/model/auth_model/login_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../shared_pref.dart';
+
 
 Future login(langApi, {email, password}) async {
   var url = Uri.parse('https://student.valuxapps.com/api/login');
@@ -83,7 +85,8 @@ Future<String> resetPassword(langApi ,{email, code, password}) async {
   return responseBody;
 }
 
-Future profile( langApi ,{var token}) async {
+Future profile( langApi ) async {
+  var token = SharedPref.getStringData(key: 'token') ;
   var url = Uri.parse('https://student.valuxapps.com/api/profile');
   var response = await http.get(url ,headers:{'lang': langApi,'Content-Type': 'application/json',
     'Authorization': token.toString()} );

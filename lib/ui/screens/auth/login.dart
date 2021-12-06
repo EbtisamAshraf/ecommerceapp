@@ -158,7 +158,7 @@ class LogIn extends StatelessWidget {
                                     if (formKey.currentState!.validate()){
                                       login( set.langApi, email:emailController.text ,password:passwordController.text ).then((value){
                                         LogInModel val =  value;
-                                        SharedPref.saveData(key: 'token', value: val.data!.token) ;
+                                        SharedPref.saveData(key: 'token', value: val.data!.token);
                                         auth.getToken(val.data!.token.toString());
                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(val.message.toString())));
                                         Navigator.push(context, MaterialPageRoute(builder: (context)=> MainScreen()));

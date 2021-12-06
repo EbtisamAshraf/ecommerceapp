@@ -1,5 +1,9 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../shared_pref.dart';
 
@@ -29,6 +33,7 @@ class SettingsProvider with ChangeNotifier{
     if (isArabic == true){
       lang = Locale('ar', 'AR');
       langApi= 'ar';
+      // SharedPref.saveData(key: 'token', value: 'ar') ; or  saveLocale: true,
     }
     else {
       lang = Locale('en', 'EN');
@@ -40,5 +45,36 @@ class SettingsProvider with ChangeNotifier{
   }
 
 
+  File? imageFile;
+  var base64Image;
+  /// Get from gallery
+  getFromGallery() async {
+    PickedFile? pickedFile = (await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        maxHeight:1800
+        ,maxWidth: 1800 )) as PickedFile?;
+    if (pickedFile != null) {
+        imageFile = File(pickedFile.path);
+        List<int> imageBytes = imageFile!.readAsBytesSync();
+        base64Image = base64Encode(imageBytes);
+
+    }
+    notifyListeners();
+  }
+
+  /// Get from Camera
+  getFromCamera() async {
+    PickedFile? pickedFile = await ImagePicker().getImage(
+      source: ImageSource.camera,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+        imageFile = File(pickedFile.path);
+        List<int> imageBytes = imageFile!.readAsBytesSync();
+        base64Image = base64Encode(imageBytes);
+    }
+    notifyListeners();
+  }
 
 }

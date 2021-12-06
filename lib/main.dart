@@ -51,9 +51,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final C = Provider.of<MyProvider>(context ,);
-     // C.changeDarkMode(isDarkMode: isDarkMode);
-     // C.getToken(token.toString());
+     // final auth = Provider.of<AuthProvider>(context );
+    // final set = Provider.of<SettingsProvider>(context);
+     // set.changeDarkMode(isDarkMode: isDarkMode);
+     // auth.getToken(token.toString());
+
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'E Commerce',

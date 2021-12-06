@@ -25,8 +25,6 @@ class SettingsScreen extends StatelessWidget  {
     final auth = Provider.of<AuthProvider>(context );
     final set = Provider.of<SettingsProvider>(context);
 
-
-
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -36,7 +34,7 @@ class SettingsScreen extends StatelessWidget  {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: FutureBuilder(
-                  future: profile( set.langApi, token: auth.token),
+                  future: profile( set.langApi,),
                   builder:(BuildContext context,AsyncSnapshot<dynamic> snapshot){
                     return snapshot.data == null ? const Center(child: CircularProgressIndicator()) : Row(
                       children: [

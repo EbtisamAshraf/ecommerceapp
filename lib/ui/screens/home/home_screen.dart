@@ -19,7 +19,6 @@ class HomeScreen extends StatelessWidget {
     final set = Provider.of<SettingsProvider>(context);
     final home = Provider.of<HomeProvider>(context);
 
-
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -38,7 +37,9 @@ class HomeScreen extends StatelessWidget {
                               ? const Center(child: CircularProgressIndicator())
                               : CarouselSlider.builder(
                                   itemBuilder: (context, item, index) {
-                                    return Image.network(
+                                    return  snapshot.data[item]['image'] == null ?
+                                    Image.asset('images/NoImageFound.png')
+                                    :Image.network(
                                       snapshot.data[item]['image'],
                                       fit: BoxFit.cover,
                                       width: MediaQuery.of(context).size.width,
@@ -119,53 +120,36 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             // Best Selling
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: SizedBox(
-              height:  MediaQuery.of(context).size.height *0.40,
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    midText( 'Best Selling', textColor( context, set.isDark, ), txtAlign: TextAlign.start),
-                    const SizedBox(height: 15,),
-                    SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height:MediaQuery.of(context).size.height *0.33,
-                      child:FutureBuilder(
-                         future: getHomeData(set.langApi),
-                             builder: (BuildContext context,  AsyncSnapshot<dynamic> snapshot) {
-                           return snapshot.data == null
-                               ? const Center(child: CircularProgressIndicator())
-                               : StaggeredGridView.countBuilder(
-                               crossAxisCount: 4,
-                               itemCount:snapshot.data.length,
-                               itemBuilder: (BuildContext context, int index)=> Card(
-                                 elevation: 3,
-                                 child: Column(
-                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                   children: [
-                                     Image.network(snapshot.data[index]['image'] ),
-                                     Padding(
-                                       padding: const EdgeInsets.all(8.0),
-                                       child: proText(snapshot.data[index]['name'],textColor(context,set.isDark,),txtAlign: TextAlign.center ),
-                                     ),
-                                     Padding(
-                                       padding: const EdgeInsets.all(8.0),
-                                       child: midText(snapshot.data[index]['price'].toString(), green),
-                                     ),
-                                   ],
-                                 ),
-                               ),
-                               staggeredTileBuilder: (int index) =>  const StaggeredTile.fit(2));
+            midText( 'Best Selling', textColor( context, set.isDark, ), txtAlign: TextAlign.start),
+            const SizedBox(height: 15,),
+            Expanded(
+              child: FutureBuilder(
+                 future: getHomeData(set.langApi),
+                     builder: (BuildContext context,  AsyncSnapshot<dynamic> snapshot) {
+                   return snapshot.data == null
+                       ? const Center(child: CircularProgressIndicator())
+                       : StaggeredGridView.countBuilder(
+                       crossAxisCount: 4,
+                       itemCount:snapshot.data.length,
+                       itemBuilder: (BuildContext context, int index)=> Card(
+                         elevation: 3,
+                         child: Column(
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           children: [
+                             Image.network(snapshot.data[index]['image'] ),
+                             Padding(
+                               padding: const EdgeInsets.all(8.0),
+                               child: proText(snapshot.data[index]['name'],textColor(context,set.isDark,),txtAlign: TextAlign.center ),
+                             ),
+                             Padding(
+                               padding: const EdgeInsets.all(8.0),
+                               child: midText(snapshot.data[index]['price'].toString(), green),
+                             ),
+                           ],
+                         ),
+                       ),
+                       staggeredTileBuilder: (int index) =>  const StaggeredTile.fit(2));
       }
-
-                      ),
-                      ),
-
-                  ],
-
-                ),
 
               ),
             ),
