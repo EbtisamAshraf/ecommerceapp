@@ -23,6 +23,16 @@ Widget subTitle(String text ,Color? color, {TextAlign txtAlign = TextAlign.start
   return Text(text.tr().toString(),style:  TextStyle(
     color: color,
     fontSize: 14,
+
+  ),
+  textAlign: txtAlign,);
+}
+Widget detailsText(String text ,Color? color, {TextAlign txtAlign = TextAlign.start}){
+
+  return Text(text.tr().toString(),style:  TextStyle(
+    color: color,
+    fontSize: 14,
+    height: 2
   ),
   textAlign: txtAlign,);
 }
@@ -32,7 +42,9 @@ Widget midText(String text , Color? color ,{TextAlign txtAlign = TextAlign.start
     color: color,
     fontSize: 18,
   ),
-  textAlign: txtAlign,);
+  textAlign: txtAlign,
+  maxLines: 2,
+  overflow: TextOverflow.ellipsis,);
 }
 Widget largeText(String text , Color? color ,{TextAlign txtAlign = TextAlign.start}){
 

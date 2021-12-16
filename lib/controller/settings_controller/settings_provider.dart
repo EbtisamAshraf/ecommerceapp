@@ -4,23 +4,30 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 import '../shared_pref.dart';
 
 class SettingsProvider with ChangeNotifier{
 
+ static  SettingsProvider get(context)=>Provider.of(context) ;
+
+
   bool isDark = false ;
-  changeDarkMode ({bool? isDarkMode}){
+  bool isDarkMode = false ;
+  initDarkMode({bool? isDarkMode}){
+    isDarkMode = SharedPref.getBoolData(key:'isDark');
     if (isDarkMode != null){
       isDark = isDarkMode;
-    } else{
+    }
+    notifyListeners();
+      return isDark;
+  }
+  changeDarkMode (){
+
       isDark= !isDark;
       SharedPref.saveData(key: 'isDark', value: isDark);
       notifyListeners();
-    }
-    // print('isDark: $isDark');
-
-
 
   }
 

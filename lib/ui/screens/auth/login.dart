@@ -161,7 +161,8 @@ class LogIn extends StatelessWidget {
                                         SharedPref.saveData(key: 'token', value: val.data!.token);
                                         auth.getToken(val.data!.token.toString());
                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(val.message.toString())));
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> MainScreen()));
+
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MainScreen()));
 
                                       });
 

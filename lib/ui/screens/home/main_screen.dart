@@ -1,5 +1,6 @@
 import 'package:ecommerceapp/controller/home_controller/home_provider.dart';
 import 'package:ecommerceapp/controller/my_provider.dart';
+import 'package:ecommerceapp/ui/screens/cart/cart_screen.dart';
 import 'package:ecommerceapp/ui/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +10,7 @@ import 'home_screen.dart';
 class MainScreen extends StatelessWidget {
 
 
-  List <Widget>pages = [HomeScreen(),Container(color: Colors.grey,),SettingsScreen()];
+  List <Widget>pages = [HomeScreen(),Cart(),SettingsScreen()];
 
 
 

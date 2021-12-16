@@ -1,14 +1,19 @@
 import 'package:ecommerceapp/constant.dart';
+import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
 import 'package:ecommerceapp/controller/home_controller/home_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/controller/home_controller/home_api.dart';
 import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
+import 'package:ecommerceapp/ui/screens/category/category_details_screen.dart';
+import 'package:ecommerceapp/ui/screens/home/product_details_screen.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
+import 'main_screen.dart';
 
 class HomeScreen extends StatelessWidget {
 
@@ -18,6 +23,7 @@ class HomeScreen extends StatelessWidget {
 
     final set = Provider.of<SettingsProvider>(context);
     final home = Provider.of<HomeProvider>(context);
+    final auth = Provider.of<AuthProvider>(context );
 
     return SafeArea(
       child: Scaffold(
@@ -93,23 +99,28 @@ class HomeScreen extends StatelessWidget {
                                           const SizedBox(
                                         width: 14,
                                       ),
-                                      itemBuilder: (context, index) => Column(
-                                        children: [
-                                          CircleAvatar(
-                                            radius: 35,
-                                            backgroundImage: NetworkImage(
-                                                snapshot.data[index]['image']),
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          subTitle(
-                                              snapshot.data[index]['name'],
-                                              textColor(
-                                                context,
-                                                set.isDark,
-                                              ))
-                                        ],
+                                      itemBuilder: (context, index) => GestureDetector(
+                                        onTap: (){
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=> CategoryDetails(snapshot.data[index]['id'], snapshot.data[index]['name'].toString())));
+                                        },
+                                        child: Column(
+                                          children: [
+                                            CircleAvatar(
+                                              radius: 35,
+                                              backgroundImage: NetworkImage(
+                                                  snapshot.data[index]['image']),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            subTitle(
+                                                snapshot.data[index]['name'],
+                                                textColor(
+                                                  context,
+                                                  set.isDark,
+                                                ))
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -120,7 +131,9 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             // Best Selling
-            midText( 'Best Selling', textColor( context, set.isDark, ), txtAlign: TextAlign.start),
+            Container(width: double.infinity,
+                padding: const EdgeInsetsDirectional.only(start: 20),
+                child: midText( 'Best Selling', textColor( context, set.isDark, ), txtAlign: TextAlign.start)),
             const SizedBox(height: 15,),
             Expanded(
               child: FutureBuilder(
@@ -133,21 +146,32 @@ class HomeScreen extends StatelessWidget {
                        itemCount:snapshot.data.length,
                        itemBuilder: (BuildContext context, int index)=> Card(
                          elevation: 3,
-                         child: Column(
-                           crossAxisAlignment: CrossAxisAlignment.start,
-                           children: [
-                             Image.network(snapshot.data[index]['image'] ),
-                             Padding(
-                               padding: const EdgeInsets.all(8.0),
-                               child: proText(snapshot.data[index]['name'],textColor(context,set.isDark,),txtAlign: TextAlign.center ),
-                             ),
-                             Padding(
-                               padding: const EdgeInsets.all(8.0),
-                               child: midText(snapshot.data[index]['price'].toString(), green),
-                             ),
-                           ],
+                         child: GestureDetector(
+                           onTap: (){
+
+                             Navigator.push(context, MaterialPageRoute(builder: (context)=> ProductDetails( snapshot.data[index]['id'],snapshot.data[index]['name'].toString())));
+                           },
+
+
+                           child: Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                               Image.network(snapshot.data[index]['image'] ),
+                               Padding(
+                                 padding: const EdgeInsets.all(8.0),
+                                 child: proText(snapshot.data[index]['name'],textColor(context,set.isDark,),txtAlign: TextAlign.center ),
+                               ),
+                               Padding(
+                                 padding: const EdgeInsets.all(8.0),
+                                 child: midText(snapshot.data[index]['price'].toString(), green),
+                               ),
+                             ],
+                           ),
                          ),
                        ),
+                       crossAxisSpacing: 7,
+                       mainAxisSpacing:7,
+                       padding: EdgeInsets.all(15),
                        staggeredTileBuilder: (int index) =>  const StaggeredTile.fit(2));
       }
 
@@ -155,6 +179,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
+
       ),
     );
   }

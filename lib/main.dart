@@ -5,12 +5,14 @@ import 'package:ecommerceapp/controller/settings_controller/settings_provider.da
 import 'package:ecommerceapp/controller/shared_pref.dart';
 import 'package:ecommerceapp/ui/screens/auth/login.dart';
 import 'package:ecommerceapp/ui/screens/home/main_screen.dart';
+import 'package:ecommerceapp/ui/screens/home/product_details_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'controller/cart_controller/cart_provider.dart';
 import 'controller/my_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -30,6 +32,7 @@ void main() async{
     ChangeNotifierProvider<AuthProvider>(create:(context) => AuthProvider()),
     ChangeNotifierProvider<HomeProvider>(create:(context) => HomeProvider(),),
     ChangeNotifierProvider<SettingsProvider>(create:(context) => SettingsProvider()),
+    ChangeNotifierProvider<CartProvider>(create:(context) => CartProvider()),
   ],
   child:  EasyLocalization(child: MyApp(token ,isDarkMode ),
     path:'resources/langs' ,
@@ -55,7 +58,7 @@ class MyApp extends StatelessWidget {
     // final set = Provider.of<SettingsProvider>(context);
      // set.changeDarkMode(isDarkMode: isDarkMode);
      // auth.getToken(token.toString());
-
+    // SettingsProvider.get(context).initDarkMode();
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -112,7 +115,8 @@ class MyApp extends StatelessWidget {
       ),
       themeMode:  Provider.of<SettingsProvider>(context).isDark == false   ? ThemeMode.light :  ThemeMode.dark,
 
-      home: AnimatedSplashScreen(
+      home:
+      AnimatedSplashScreen(
         splash: Padding(
           padding: const EdgeInsets.all(40.0),
           child: Center(
