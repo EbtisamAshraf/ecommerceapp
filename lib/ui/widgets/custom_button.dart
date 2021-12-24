@@ -39,3 +39,18 @@ Widget outLineButton(String text , {VoidCallback? fun , String? image , Color cl
 
 
 }
+Widget outLineButton2(String text , {VoidCallback? fun ,  Color clr =green  }){
+
+  return OutlinedButton(
+    onPressed: fun,
+   child: Text(text,style: const TextStyle(fontSize: 14,color: black),) ,
+    style:  ButtonStyle(
+       padding: MaterialStateProperty.all( const EdgeInsets.symmetric(
+          vertical: 18, horizontal: 50)),
+        side: MaterialStateProperty.all(BorderSide(color: clr))
+
+    ),
+  );
+
+
+}

@@ -9,6 +9,7 @@ Widget defaultTextFormField({
   bool obscure = false,
   ValueChanged<String>? onChanged,
   Widget? suffixIcon,
+  String? initVal,
 
 
 }){
@@ -19,6 +20,7 @@ Widget defaultTextFormField({
     keyboardType: keyboardType ,
     onSaved: onSaved,
     obscureText: obscure,
+    initialValue: initVal,
     onChanged: onChanged,
     decoration: InputDecoration(
       suffixIcon: suffixIcon,

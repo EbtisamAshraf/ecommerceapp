@@ -3,6 +3,7 @@ import 'package:ecommerceapp/controller/cart_controller/cart_api.dart';
 import 'package:ecommerceapp/controller/cart_controller/cart_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
+import 'package:ecommerceapp/ui/screens/checkout/delivery_screen.dart';
 import 'package:ecommerceapp/ui/screens/home/home_screen.dart';
 import 'package:ecommerceapp/ui/screens/home/main_screen.dart';
 import 'package:ecommerceapp/ui/widgets/custom_button.dart';
@@ -145,33 +146,34 @@ class _CartState extends State<Cart> {
                       );
                 }),
             const SizedBox(height: 100,),
-            // BottomSheet(onClosing: (){}, builder: (context){
-            //   return Container(
-            //     color: Colors.white,
-            //     height: 100,
-            //     padding: const EdgeInsets.all(20),
-            //     child: Row(
-            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //       children: [
-            //         Column(
-            //           children: [
-            //             smallGreyText('PRICE'),
-            //             const SizedBox(
-            //               height: 5,
-            //             ),
-            //             midText('\$1500', green)
-            //           ],
-            //         ),
-            //         defaultButton('CHECKOUT', padding: 60, fun: () {
-            //
-            //         }),
-            //       ],
-            //     ),
-            //   );
-            // })
+
           ]),
         ),
+bottomSheet:   BottomSheet(onClosing: (){}, builder: (context){
+          return Container(
+            color: Colors.white,
+            height: 100,
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    smallGreyText('PRICE'),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    midText('\$1500', green)
+                  ],
+                ),
+                defaultButton('CHECKOUT', padding: 60, fun: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> Delivery() ));
 
+                }),
+              ],
+            ),
+          );
+        }),
       ),
     );
   }

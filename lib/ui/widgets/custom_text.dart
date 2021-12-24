@@ -36,6 +36,15 @@ Widget detailsText(String text ,Color? color, {TextAlign txtAlign = TextAlign.st
   ),
   textAlign: txtAlign,);
 }
+Widget detailsTextL(String text ,Color? color, {TextAlign txtAlign = TextAlign.start}){
+
+  return Text(text.tr().toString(),style:  TextStyle(
+    color: color,
+    fontSize: 16,
+    height: 2
+  ),
+  textAlign: txtAlign,);
+}
 Widget midText(String text , Color? color ,{TextAlign txtAlign = TextAlign.start}){
 
   return Text(text.tr().toString(),style:  TextStyle(

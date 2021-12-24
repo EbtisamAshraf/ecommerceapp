@@ -53,6 +53,7 @@ class OrderHistoryScreen extends StatelessWidget {
               alignment: TimelineAlign.manual,
               afterLineStyle: LineStyle(color: green, thickness: 3),
               beforeLineStyle: LineStyle(color: green, thickness: 3),
+
               indicatorStyle: IndicatorStyle(color:green  ),
               lineXY: 0.3,
               startChild: Padding(
