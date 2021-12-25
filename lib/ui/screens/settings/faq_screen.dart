@@ -40,7 +40,7 @@ class FAQScreen extends StatelessWidget {
                     header: midText(snapshot.data[index]['question'],textColor(context, set.isDark ,) ,txtAlign: TextAlign.center),
                     content: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: midText(snapshot.data[index]['answer'], greyDark,txtAlign: TextAlign.end),
+                      child: midDetailsText(snapshot.data[index]['answer'], greyDark,txtAlign: TextAlign.end),
                     ),
                   ),
 

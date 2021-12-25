@@ -90,5 +90,20 @@
   "Forgot Password?":"Forgot Password?",
   "Arabic":"Arabic",
   "Categories":"Categories",
-  "Best Selling":"Best Selling"
+  "Best Selling":"Best Selling",
+  "PRICE":"PRICE",
+  "Details":"Details",
+  "Add":"Add",
+  "CHECKOUT":"CHECKOUT",
+  "Delivery":"Delivery",
+  "Deliver":"Deliver",
+  "Summer":"Summer",
+  "BACK":"BACK",
+  "Change":"Change",
+  "Standard Delivery":"Standard Delivery",
+  "Next Day Delivery":"Next Day Delivery",
+  "home":"home",
+  "cart":"cart",
+  "settings":"settings"
+
 }

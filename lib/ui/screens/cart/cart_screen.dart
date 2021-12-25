@@ -4,17 +4,13 @@ import 'package:ecommerceapp/controller/cart_controller/cart_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
 import 'package:ecommerceapp/ui/screens/checkout/delivery_screen.dart';
-import 'package:ecommerceapp/ui/screens/home/home_screen.dart';
-import 'package:ecommerceapp/ui/screens/home/main_screen.dart';
 import 'package:ecommerceapp/ui/widgets/custom_button.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:provider/provider.dart';
 import '../../../constant.dart';
 
 class Cart extends StatefulWidget {
-
 
   @override
   State<Cart> createState() => _CartState();
@@ -27,12 +23,10 @@ class _CartState extends State<Cart> {
   @override
   Widget build(BuildContext context) {
     final set = Provider.of<SettingsProvider>(context);
-    final auth = Provider.of<AuthProvider>(context);
     final cart = Provider.of<CartProvider>(context);
   late  var id;
-  var  quantity ;
-    int upDateQuantity   ;
-
+  List priceProduct = [];
+  var total = 0   ;
 
     return SafeArea(
       child: Scaffold(
@@ -45,19 +39,29 @@ class _CartState extends State<Cart> {
                 builder:  (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
 
 
+
                   return snapshot.data == null
-                      ? const Center(child: Center(child: Text('Empty')))
+                      ? const Center(child: Center(child: CircularProgressIndicator()))
                       : Expanded(
                         child: snapshot.data == null
-                            ? const Center(child: Center(child: CircularProgressIndicator()))
+                            ? const Center(child: Center(child: Text('Empty')))
                             :  ListView.builder(
-                          shrinkWrap: true,
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (BuildContext context, int index) {
+                              shrinkWrap: true,
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (BuildContext context, int index) {
 
                       id= snapshot.data[index]['id'].toString();
+                      // total = snapshot.data['total'];
+                      // print('total >>>>>>>>>> $total');
 
-                        return Column(
+                      //   priceProduct.add(snapshot.data[index]['product']['price']);
+                      // for (var i = 0; i < priceProduct.length; i++) {
+                      //   total += priceProduct[index];
+                      //   print('total >>>>>>>>>> $total');
+                      // }
+
+
+                         return Column(
                           children: [
                             SizedBox(
                                 height: MediaQuery.of(context).size.height * 0.20,
@@ -104,6 +108,8 @@ class _CartState extends State<Cart> {
                                                         cart.addQuantity(int.parse(snapshot.data[index]['quantity'].toString()));
                                                        cart.inQuantity();
                                                        updateCart(set.langApi,  quantity:cart.quantity.toString() ,id: id.toString() );
+
+
                                                       },
                                                       child: const Icon(Icons.add)),
                                                   midText(
@@ -115,6 +121,7 @@ class _CartState extends State<Cart> {
                                                         cart.addQuantity(int.parse(snapshot.data[index]['quantity'].toString()));
                                                         cart.deQuantity();
                                                         updateCart(set.langApi,  quantity:cart.quantity.toString() ,id: id.toString() );
+
                                                       },
                                                       child: const Icon(Icons.remove)),
                                                 ]),
@@ -149,7 +156,7 @@ class _CartState extends State<Cart> {
 
           ]),
         ),
-bottomSheet:   BottomSheet(onClosing: (){}, builder: (context){
+        bottomSheet:   BottomSheet(onClosing: (){}, builder: (context){
           return Container(
             color: Colors.white,
             height: 100,
@@ -163,7 +170,7 @@ bottomSheet:   BottomSheet(onClosing: (){}, builder: (context){
                     const SizedBox(
                       height: 5,
                     ),
-                    midText('\$1500', green)
+                    midText( '$total', green)
                   ],
                 ),
                 defaultButton('CHECKOUT', padding: 60, fun: () {

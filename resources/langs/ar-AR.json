@@ -88,7 +88,21 @@
   "Forgot Password?":"نسيت كلمة المرور؟",
   "Arabic":"العربية",
   "Categories":"الأقسام",
-  "Best Selling":"الأفضل مبيعًا"
-
+  "Best Selling":"الأفضل مبيعًا",
+  "PRICE":"السعر",
+  "Details":"التفاصيل",
+  "Add":"أضف",
+  "CHECKOUT":"الدفع",
+  "Delivery":"التسليم",
+  "Deliver":"توصيل",
+  "Summer":"ملخص",
+  "BACK":"عودة",
+  "Change":"تغيير",
+  "Standard Delivery":"التسليم العادي",
+  "Next Day Delivery":"التسليم في اليوم التالي",
+  "Nominated Delivery":"التسليم المرشح",
+  "home":"الرئيسية",
+  "cart":"العربة",
+  "settings":"الإعدادات"
 
 }

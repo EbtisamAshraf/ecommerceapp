@@ -6,7 +6,6 @@ import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/controller/home_controller/home_api.dart';
 import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
 import 'package:ecommerceapp/ui/screens/cart/cart_screen.dart';
-import 'package:ecommerceapp/ui/screens/home/main_screen.dart';
 import 'package:ecommerceapp/ui/widgets/custom_button.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,8 +22,6 @@ class ProductDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    bool in_favorites= false;
-    bool in_cart=  false;
 
     final set = Provider.of<SettingsProvider>(context);
     final auth = Provider.of<AuthProvider>(context );
@@ -53,10 +50,10 @@ class ProductDetails extends StatelessWidget {
                             image:NetworkImage(snapshot.data['image'].toString(), ),fit: BoxFit.contain),),
 
                     ),
-                    Positioned(child: CircleAvatar( backgroundColor: Colors.green[300],child: IconButton(onPressed: (){}, icon: Icon(Icons.star_border))),
-                      top: MediaQuery.of(context).size.height *0.03,right: 7, ),
-                    Positioned(child: CircleAvatar(backgroundColor: Colors.green[300],child: IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back))),
-                      top: MediaQuery.of(context).size.height *0.03,left: 7,),
+                    PositionedDirectional(child: CircleAvatar( backgroundColor: Colors.green[300],child: IconButton(onPressed: (){}, icon: Icon(Icons.star_border))),
+                      top: MediaQuery.of(context).size.height *0.03,end: 7, ),
+                    PositionedDirectional(child: CircleAvatar(backgroundColor: Colors.green[300],child: IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back))),
+                      top: MediaQuery.of(context).size.height *0.03,start:  7,),
                   ],
                 ),
                 Padding(
@@ -86,7 +83,8 @@ class ProductDetails extends StatelessWidget {
                             defaultButton('Add' , padding: 40 , fun: (){
 
                               addCart(langApi: set.langApi, productId: snapshot.data['id'].toString());
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> MainScreen()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> Cart()));
+                              // Navigator.push(context, MaterialPageRoute(builder: (context)=> MainScreen()));
                               // cart.counter.add(1);
 
                              }),

@@ -55,6 +55,15 @@ Widget midText(String text , Color? color ,{TextAlign txtAlign = TextAlign.start
   maxLines: 2,
   overflow: TextOverflow.ellipsis,);
 }
+Widget midDetailsText(String text , Color? color ,{TextAlign txtAlign = TextAlign.start}){
+
+  return Text(text.tr().toString(),style:  TextStyle(
+    color: color,
+    fontSize: 18,
+  ),
+  textAlign: txtAlign,
+  );
+}
 Widget largeText(String text , Color? color ,{TextAlign txtAlign = TextAlign.start}){
 
   return Text(text.tr().toString(),style:  TextStyle(

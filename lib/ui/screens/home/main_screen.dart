@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:ecommerceapp/controller/home_controller/home_provider.dart';
 import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/ui/screens/cart/cart_screen.dart';
@@ -23,10 +24,10 @@ class MainScreen extends StatelessWidget {
       body:  pages[home.selectIndex],
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: home.selectIndex,
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home,) ,label: 'home',),
-            BottomNavigationBarItem(icon: Icon(Icons.add_shopping_cart),label: 'cart'),
-            BottomNavigationBarItem(icon: Icon(Icons.settings),label: 'settings'),
+          items:  [
+            BottomNavigationBarItem(icon: const Icon(Icons.home,) ,label: 'home'.tr().toString(),),
+            BottomNavigationBarItem(icon: const Icon(Icons.add_shopping_cart),label: 'cart'.tr().toString()),
+            BottomNavigationBarItem(icon: const Icon(Icons.settings),label: 'settings'.tr().toString()),
           ],
           onTap: (i){
             home.onTapBottomNavigationBar(i);

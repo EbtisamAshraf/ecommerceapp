@@ -125,7 +125,7 @@ class MyApp extends StatelessWidget {
               children: [
                 Image.asset('images/icon.png' ,fit: BoxFit.scaleDown,),
                  const SizedBox(height:30 ,),
-                 const Text('E Commerce' , style: TextStyle(color: Colors.green, fontSize: 35 , fontWeight: FontWeight.bold)),
+                 const Text('shop' , style: TextStyle(color: Colors.green, fontSize: 35 , fontWeight: FontWeight.bold)),
               ],
             ),
           ),
@@ -139,7 +139,7 @@ class MyApp extends StatelessWidget {
         //           ),
         //           fit: BoxFit.cover)),
         // ),
-        duration: 4000,
+        duration: 2000,
         nextScreen:  token == null ? LogIn() : MainScreen(),
         splashIconSize: double.infinity,
         splashTransition: SplashTransition.fadeTransition,
