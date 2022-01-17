@@ -1,6 +1,7 @@
 import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/controller/home_controller/home_api.dart';
+import 'package:ecommerceapp/controller/settings_controller/lang_provider.dart';
 import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -15,13 +16,14 @@ class FAQScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final set = Provider.of<SettingsProvider>(context);
+    final lang = context.select((LangProvider lang) => lang.langApi);
+    final isDark = context.select((SettingsProvider dark) => dark.isDark);
 
 
     return Scaffold(
-      appBar: AppBar(title: midText('fAQ',textColor(context, set.isDark ,)),centerTitle: true,),
+      appBar: AppBar(title: midText('fAQ',textColor(context,  isDark ,)),centerTitle: true,),
       body: FutureBuilder(
-         future: getFAQ(set.langApi),
+         future: getFAQ(lang),
           builder:(BuildContext context,AsyncSnapshot<dynamic> snapshot){
           return snapshot.data == null ? const Center(child: CircularProgressIndicator()) :
           ListView.builder(
@@ -37,7 +39,7 @@ class FAQScreen extends StatelessWidget {
                   AccordionSection(
                     isOpen: false,
                     leftIcon:  const Icon(Icons.compare_rounded, color: Colors.white),
-                    header: midText(snapshot.data[index]['question'],textColor(context, set.isDark ,) ,txtAlign: TextAlign.center),
+                    header: midText(snapshot.data[index]['question'],textColor(context,  isDark ,) ,txtAlign: TextAlign.center),
                     content: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: midDetailsText(snapshot.data[index]['answer'], greyDark,txtAlign: TextAlign.end),

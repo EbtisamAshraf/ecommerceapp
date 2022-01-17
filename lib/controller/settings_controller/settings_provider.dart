@@ -32,26 +32,6 @@ class SettingsProvider with ChangeNotifier{
   }
 
 
-  bool isArabic = false ;
-  var lang = Locale('en', 'EN');
-  var langApi = 'en';
-  changeLang(){
-    isArabic = !isArabic;
-    if (isArabic == true){
-      lang = Locale('ar', 'AR');
-      langApi= 'ar';
-      // SharedPref.saveData(key: 'token', value: 'ar') ; or  saveLocale: true,
-    }
-    else {
-      lang = Locale('en', 'EN');
-      langApi= 'en';
-    }
-
-    notifyListeners();
-    return lang;
-  }
-
-
   File? imageFile;
   var base64Image;
   /// Get from gallery
@@ -85,3 +65,6 @@ class SettingsProvider with ChangeNotifier{
   }
 
 }
+
+
+

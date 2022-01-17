@@ -1,6 +1,7 @@
 import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/controller/home_controller/home_api.dart';
+import 'package:ecommerceapp/controller/settings_controller/lang_provider.dart';
 import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
 import 'package:ecommerceapp/ui/screens/home/product_details_screen.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
@@ -21,15 +22,17 @@ class CategoryDetails extends StatelessWidget {
   Widget build(BuildContext context) {
 
 
-    final set = Provider.of<SettingsProvider>(context);
     final auth = Provider.of<AuthProvider>(context );
+    final isDark = context.select((SettingsProvider dark) => dark.isDark);
+    final lang = context.select((LangProvider lang) => lang.langApi);
+
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title:  midText( name, textColor( context, set.isDark, ),),),
+      appBar: AppBar(centerTitle: true, title:  midText( name, textColor( context,  isDark, ),),),
       body: Column(
         children: [
           Expanded(
             child: FutureBuilder(
-                future: getCategoriesDetails(langApi: set.langApi,token:  auth.token, id:id ),
+                future: getCategoriesDetails(langApi:lang ,token:  auth.token, id:id ),
                 builder: (BuildContext context,  AsyncSnapshot<dynamic> snapshot) {
                   return snapshot.data == null
                       ? const Center(child: CircularProgressIndicator())
@@ -50,7 +53,7 @@ class CategoryDetails extends StatelessWidget {
                                 Image.network(snapshot.data[index]['image'] ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: proText(snapshot.data[index]['name'],textColor(context,set.isDark,),txtAlign: TextAlign.center ),
+                                  child: proText(snapshot.data[index]['name'],textColor(context, isDark,),txtAlign: TextAlign.center ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),

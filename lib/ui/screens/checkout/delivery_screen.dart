@@ -16,9 +16,11 @@ class Delivery extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final set = Provider.of<SettingsProvider>(context);
+
+    final isDark = context.select((SettingsProvider dark) => dark.isDark);
+
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title:  midText( "Checkout", textColor( context, set.isDark, ),),),
+      appBar: AppBar(centerTitle: true, title:  midText( "Checkout", textColor( context, isDark, ),),),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
@@ -37,7 +39,7 @@ class Delivery extends StatelessWidget {
                  afterLineStyle:  LineStyle(color: green, thickness: 3),
                   endChild:  Padding(
                     padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.10, vertical: 20),
-                    child:  proText('Delivery', textColor(context, set.isDark ,)),
+                    child:  proText('Delivery', textColor(context, isDark ,)),
                   ),
                     isFirst: true,
 
@@ -47,7 +49,7 @@ class Delivery extends StatelessWidget {
                       alignment: TimelineAlign.start,
                       endChild:  Padding(
                         padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.10, vertical:20),
-                        child: proText('Address', textColor(context, set.isDark ,)),
+                        child: proText('Address', textColor(context, isDark ,)),
                       ),
                     ),
                     TimelineTile(
@@ -56,7 +58,7 @@ class Delivery extends StatelessWidget {
                       isLast: true,
                       endChild:  Padding(
                         padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.09, vertical:20),
-                        child:proText('Summer', textColor(context, set.isDark ,)),
+                        child:proText('Summer', textColor(context, isDark ,)),
                       ),
                     ),
 
@@ -66,36 +68,36 @@ class Delivery extends StatelessWidget {
               ),
               SizedBox(
                 width: double.infinity,
-                  child: largeText('Standard Delivery', textColor(context, set.isDark ,) ,txtAlign: TextAlign.start)),
+                  child: largeText('Standard Delivery', textColor(context, isDark ,) ,txtAlign: TextAlign.start)),
               const SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(child: detailsTextL('Order will be delivered between 3 - 5 business days', textColor(context, set.isDark ,))),
+                  Expanded(child: detailsTextL('Order will be delivered between 3 - 5 business days', textColor(context,  isDark ,))),
                   const CircleAvatar(radius: 13,),
                 ],
               ),
               const SizedBox(height: 40,),
               SizedBox(
                   width: double.infinity,
-                  child: largeText('Next Day Delivery', textColor(context, set.isDark ,) ,txtAlign: TextAlign.start)),
+                  child: largeText('Next Day Delivery', textColor(context,  isDark ,) ,txtAlign: TextAlign.start)),
               const SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(child: detailsTextL('Place your order before 6pm and your items will be delivered the next day', textColor(context, set.isDark ,))),
+                  Expanded(child: detailsTextL('Place your order before 6pm and your items will be delivered the next day', textColor(context,  isDark ,))),
                   const CircleAvatar(radius: 13,),
                 ],
               ),
               const SizedBox(height: 40,),
               SizedBox(
                   width: double.infinity,
-                  child: largeText('Nominated Delivery', textColor(context, set.isDark ,) ,txtAlign: TextAlign.start)),
+                  child: largeText('Nominated Delivery', textColor(context,  isDark ,) ,txtAlign: TextAlign.start)),
               const SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(child: detailsTextL('Pick a particular date from the calendar and order will be delivered on selected date', textColor(context, set.isDark ,))),
+                  Expanded(child: detailsTextL('Pick a particular date from the calendar and order will be delivered on selected date', textColor(context,  isDark ,))),
                   const CircleAvatar(radius: 13,),
                 ],
               ),

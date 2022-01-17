@@ -1,6 +1,7 @@
 import 'package:ecommerceapp/controller/auth_controller/auth_api.dart';
 import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
+import 'package:ecommerceapp/controller/settings_controller/lang_provider.dart';
 import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
 import 'package:ecommerceapp/ui/screens/auth/new_password.dart';
 import 'package:ecommerceapp/ui/widgets/custom_button.dart';
@@ -24,7 +25,9 @@ class ResetPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final set = Provider.of<SettingsProvider>(context);
+
+    final lang = context.select((LangProvider lang) => lang.langApi);
+    final isDark = context.select((SettingsProvider dark) => dark.isDark);
 
 
     return SafeArea(
@@ -32,9 +35,9 @@ class ResetPassword extends StatelessWidget {
         appBar: AppBar(
           title:  Text(
             'Forgot Password',
-            style: TextStyle(color: textColor(context, set.isDark ,)),
+            style: TextStyle(color: textColor(context, isDark ,)),
           ),
-          backgroundColor: textColor(context, !set.isDark ,),
+          backgroundColor: textColor(context, !isDark ,),
           elevation: 0.0,
           leading: IconButton(
             onPressed: () {
@@ -42,7 +45,7 @@ class ResetPassword extends StatelessWidget {
             },
             icon:  Icon(
               Icons.arrow_back,
-              color: textColor(context, set.isDark ,),
+              color: textColor(context, isDark ,),
             ),
           ),
         ),
@@ -52,7 +55,7 @@ class ResetPassword extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                    color:  textColor(context, !set.isDark ,),
+                    color:  textColor(context, !isDark ,),
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Form(
@@ -62,7 +65,7 @@ class ResetPassword extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            subTitle('Email' ,textColor(context, set.isDark)),
+                            subTitle('Email' ,textColor(context, isDark)),
                             defaultTextFormField(
                               controller: emailController,
                               keyboardType: TextInputType.emailAddress,
@@ -87,10 +90,10 @@ class ResetPassword extends StatelessWidget {
                                         fun: () {
                                       formKey.currentState!.save();
                                       if (formKey.currentState!.validate()) {
-                                        verifyEmail( set.langApi, email: emailController.text).then((value) {
+                                        verifyEmail(lang,  email: emailController.text).then((value) {
                                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value),));
                                         });
-                                        verifyCode( set.langApi, email: emailController.text,code: code);
+                                        verifyCode(lang,  email: emailController.text,code: code);
                                         showDialog(context: context,
                                             builder: (BuildContext context) =>
                                                 AlertDialog(
@@ -116,7 +119,7 @@ class ResetPassword extends StatelessWidget {
                                                     TextButton(
                                                       child: const Text('OK'),
                                                       onPressed: () {
-                                                        verifyCode( set.langApi, email:emailController.text ,code: codeController.text ).then((value) {
+                                                        verifyCode(lang,  email:emailController.text ,code: codeController.text ).then((value) {
                                                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value)));
                                                           if (value != 'الكود الذي قمت بادخاله غير صحيح' || value != 'The code you have entered is not valid'){
                                                             Navigator.push(

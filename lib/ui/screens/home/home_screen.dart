@@ -3,7 +3,9 @@ import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
 import 'package:ecommerceapp/controller/home_controller/home_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/controller/home_controller/home_api.dart';
+import 'package:ecommerceapp/controller/settings_controller/lang_provider.dart';
 import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
+import 'package:ecommerceapp/model/home_model/banners_model.dart';
 import 'package:ecommerceapp/ui/screens/category/category_details_screen.dart';
 import 'package:ecommerceapp/ui/screens/home/product_details_screen.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
@@ -12,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'main_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -21,9 +23,11 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final set = Provider.of<SettingsProvider>(context);
-    final home = Provider.of<HomeProvider>(context);
-    final auth = Provider.of<AuthProvider>(context );
+
+    final home = context.select((HomeProvider home) => home.onPageChangedCarousel(5));
+    final lang = context.select((LangProvider lang) => lang.langApi);
+    final isDark = context.select((SettingsProvider dark) => dark.isDark);
+
 
     return SafeArea(
       child: Scaffold(
@@ -36,30 +40,41 @@ class HomeScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height:  MediaQuery.of(context).size.height * 0.15,
                 child: FutureBuilder(
-                  future: getBanners(set.langApi),
+                  future: getBanners(lang),
                   builder:
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) =>
-                          snapshot.data == null
-                              ? const Center(child: CircularProgressIndicator())
-                              : CarouselSlider.builder(
-                                  itemBuilder: (context, item, index) {
-                                    return  snapshot.data[item]['image'] == null ?
-                                    Image.asset('images/NoImageFound.png')
-                                    :Image.network(
-                                      snapshot.data[item]['image'],
-                                      fit: BoxFit.cover,
-                                      width: MediaQuery.of(context).size.width,
-                                    );
-                                  },
-                                  itemCount: snapshot.data.length,
-                                  carouselController: _controller,
-                                  options: CarouselOptions(
-                                      autoPlay: true,
-                                      enlargeCenterPage: true,
-                                      onPageChanged: (index, reason) {
-                                        home.onPageChangedCarousel(index);
-                                      }),
-                                ),
+                         ( snapshot.hasData) ? CarouselSlider.builder(
+                           itemBuilder: (context, item, index) {
+                             return  snapshot.data[item]['image'] == null ?
+                             Image.asset('images/NoImageFound.png')
+                                 :
+                             Image.network(snapshot.data[item]['image'],);
+                             // CachedNetworkImage(
+                             //   imageUrl:
+                             //   snapshot.data[item]['image'],
+                             //   // placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                             //   // errorWidget: (context, url, error) => Icon(Icons.error),
+                             //   fit: BoxFit.cover,
+                             //   width: MediaQuery.of(context).size.width,
+                             // )
+
+                             // CachedNetworkImage(
+                             //   imageUrl: "https://student.valuxapps.com/storage/uploads/banners/1619472351ITAM5.3bb51c97376281.5ec3ca8c1e8c5.jpg",
+                             //   placeholder: (context, url) => CircularProgressIndicator(),
+                             //   errorWidget: (context, url, error) => Icon(Icons.error),
+                             // )
+
+                            // ;
+                           },
+                           itemCount: snapshot.data.length,
+                           carouselController: _controller,
+                           options: CarouselOptions(
+                               autoPlay: true,
+                               enlargeCenterPage: true,
+                               onPageChanged: (index, reason) {
+                                 home;
+                               }),
+                         ):Center(child: CircularProgressIndicator()),
                 ),
               ),
             ),
@@ -75,14 +90,14 @@ class HomeScreen extends StatelessWidget {
                         'Categories',
                         textColor(
                           context,
-                          set.isDark,
+                          isDark,
                         ),
                         txtAlign: TextAlign.start),
                     const SizedBox(
                       height: 20,
                     ),
                     FutureBuilder(
-                        future: getCategories(set.langApi),
+                        future: getCategories(lang),
                         builder: (BuildContext context,
                             AsyncSnapshot<dynamic> snapshot) {
                           return snapshot.data == null
@@ -117,7 +132,7 @@ class HomeScreen extends StatelessWidget {
                                                 snapshot.data[index]['name'],
                                                 textColor(
                                                   context,
-                                                  set.isDark,
+                                                  isDark,
                                                 ))
                                           ],
                                         ),
@@ -133,11 +148,11 @@ class HomeScreen extends StatelessWidget {
             // Best Selling
             Container(width: double.infinity,
                 padding: const EdgeInsetsDirectional.only(start: 20),
-                child: midText( 'Best Selling', textColor( context, set.isDark, ), txtAlign: TextAlign.start)),
+                child: midText( 'Best Selling', textColor( context, isDark, ), txtAlign: TextAlign.start)),
             const SizedBox(height: 15,),
             Expanded(
               child: FutureBuilder(
-                 future: getHomeData(set.langApi),
+                 future: getHomeData(lang),
                      builder: (BuildContext context,  AsyncSnapshot<dynamic> snapshot) {
                    return snapshot.data == null
                        ? const Center(child: CircularProgressIndicator())
@@ -159,7 +174,7 @@ class HomeScreen extends StatelessWidget {
                                Image.network(snapshot.data[index]['image'] ),
                                Padding(
                                  padding: const EdgeInsets.all(8.0),
-                                 child: proText(snapshot.data[index]['name'],textColor(context,set.isDark,),txtAlign: TextAlign.center ),
+                                 child: proText(snapshot.data[index]['name'],textColor(context,isDark,),txtAlign: TextAlign.center ),
                                ),
                                Padding(
                                  padding: const EdgeInsets.all(8.0),

@@ -4,6 +4,7 @@ import 'package:ecommerceapp/controller/auth_controller/auth_api.dart';
 import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
 import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
+import 'package:ecommerceapp/controller/settings_controller/lang_provider.dart';
 import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
 import 'package:ecommerceapp/controller/shared_pref.dart';
 import 'package:ecommerceapp/model/auth_model/login_model.dart';
@@ -47,7 +48,8 @@ class LogIn extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final auth = Provider.of<AuthProvider>(context);
-    final set = Provider.of<SettingsProvider>(context);
+    final lang = context.select((LangProvider lang) => lang.langApi);
+    final isDark = context.select((SettingsProvider dark) => dark.isDark);
 
     Future <bool> onBackPressed ( ) async{
       return await showDialog(
@@ -80,7 +82,7 @@ class LogIn extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                      color: textColor(context, !set.isDark ,),
+                      color: textColor(context, !isDark ,),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Form(
@@ -93,7 +95,7 @@ class LogIn extends StatelessWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  title('Welcome, ', textColor(context, set.isDark)),
+                                  title('Welcome, ', textColor(context, isDark)),
                                   TextButton(onPressed: (){
                                     Navigator.push(context, MaterialPageRoute(builder: (context)=> SignUp()));
                                   },
@@ -102,9 +104,9 @@ class LogIn extends StatelessWidget {
                                 ],
                               ),
                               const SizedBox(height: 10,),
-                              subTitle('Sign in to Continue' , textColor(context, set.isDark)),
+                              subTitle('Sign in to Continue' , textColor(context, isDark)),
                              const SizedBox(height: 40,),
-                              subTitle('Email', textColor(context, set.isDark)),
+                              subTitle('Email', textColor(context,isDark)),
                               defaultTextFormField(
                                 controller:emailController,
                                   keyboardType: TextInputType.emailAddress,
@@ -119,7 +121,7 @@ class LogIn extends StatelessWidget {
                                     }
                                   }, ),
                               const SizedBox(height: 20,),
-                              subTitle('Password' , textColor(context, set.isDark)),
+                              subTitle('Password' , textColor(context, isDark)),
                               defaultTextFormField(
                                 suffixIcon:  auth.unHide ?
                                 IconButton( icon:  const Icon(Icons.visibility),onPressed:auth.showPassword ,) :
@@ -147,7 +149,7 @@ class LogIn extends StatelessWidget {
                                       onPressed: (){
                                         Navigator.push(context, MaterialPageRoute(builder: (context)=> ResetPassword()));
                                       },
-                                      child: subTitle('Forgot Password?' , textColor(context, set.isDark))),],
+                                      child: subTitle('Forgot Password?' , textColor(context, isDark))),],
                                 ),
                               const SizedBox(height: 20,),
                               Center(child: SizedBox(
@@ -156,7 +158,7 @@ class LogIn extends StatelessWidget {
                                       fun:(){
                                     formKey.currentState!.save();
                                     if (formKey.currentState!.validate()){
-                                      login( set.langApi, email:emailController.text ,password:passwordController.text ).then((value){
+                                      login( lang, email:emailController.text ,password:passwordController.text ).then((value){
                                         LogInModel val =  value;
                                         SharedPref.saveData(key: 'token', value: val.data!.token);
                                         auth.getToken(val.data!.token.toString());

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerceapp/constant.dart';
 import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
 import 'package:ecommerceapp/controller/home_controller/home_provider.dart';
@@ -16,6 +17,8 @@ import 'controller/cart_controller/cart_provider.dart';
 import 'controller/my_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import 'controller/settings_controller/lang_provider.dart';
+
 
 void main() async{
 
@@ -25,6 +28,7 @@ void main() async{
  await SharedPref.init();
  var token = SharedPref.getStringData(key: 'token') ;
  var isDarkMode =  SharedPref.getBoolData(key:'isDark') ;
+ var lang =  SharedPref.getStringData(key:'lang') ;
 
   runApp(MultiProvider(providers:
   [
@@ -33,8 +37,9 @@ void main() async{
     ChangeNotifierProvider<HomeProvider>(create:(context) => HomeProvider(),),
     ChangeNotifierProvider<SettingsProvider>(create:(context) => SettingsProvider()),
     ChangeNotifierProvider<CartProvider>(create:(context) => CartProvider()),
+    ChangeNotifierProvider<LangProvider>(create:(context) => LangProvider()),
   ],
-  child:  EasyLocalization(child: MyApp(token ,isDarkMode ),
+  child:  EasyLocalization(child: MyApp(token ,isDarkMode,lang ),
     path:'resources/langs' ,
     supportedLocales: const [
       Locale('en', 'EN'),
@@ -48,8 +53,8 @@ void main() async{
 class MyApp extends StatelessWidget {
  late var token;
   var isDarkMode;
-
-  MyApp  (this.token , this.isDarkMode);
+ var lang;
+  MyApp  (this.token , this.isDarkMode,this.lang);
 
 
   @override

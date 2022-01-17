@@ -1,6 +1,7 @@
 import 'package:ecommerceapp/controller/auth_controller/auth_api.dart';
 import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
+import 'package:ecommerceapp/controller/settings_controller/lang_provider.dart';
 import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
 import 'package:ecommerceapp/ui/screens/auth/login.dart';
 import 'package:ecommerceapp/ui/widgets/custom_button.dart';
@@ -22,7 +23,9 @@ class NewPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final set = Provider.of<SettingsProvider>(context);
+
+    final lang = context.select((LangProvider lang) => lang.langApi);
+    final isDark = context.select((SettingsProvider dark) => dark.isDark);
 
     return Scaffold(
       appBar: AppBar(
@@ -54,11 +57,11 @@ class NewPassword extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          title('New Password ',textColor(context, set.isDark)),
+                          title('New Password ',textColor(context,isDark)),
                           const SizedBox(
                             height: 40,
                           ),
-                          subTitle('Password', textColor(context, set.isDark)),
+                          subTitle('Password', textColor(context, isDark)),
                           defaultTextFormField(
                             controller: passwordController,
                             keyboardType: TextInputType.visiblePassword,
@@ -81,7 +84,7 @@ class NewPassword extends StatelessWidget {
                                   child: defaultButton('Done', fun: () {
                                     formKey.currentState!.save();
                                     if (formKey.currentState!.validate()) {
-                                      resetPassword(  set.langApi,
+                                      resetPassword(lang,
                                           email: email,
                                           code: code,
                                           password: passwordController.text)

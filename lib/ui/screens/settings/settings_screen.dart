@@ -2,6 +2,7 @@ import 'package:easy_localization/src/public_ext.dart';
 import 'package:ecommerceapp/controller/auth_controller/auth_api.dart';
 import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
+import 'package:ecommerceapp/controller/settings_controller/lang_provider.dart';
 import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
 import 'package:ecommerceapp/controller/shared_pref.dart';
 import 'package:ecommerceapp/ui/screens/auth/login.dart';
@@ -23,7 +24,10 @@ class SettingsScreen extends StatelessWidget  {
   Widget build(BuildContext context) {
 
     final auth = Provider.of<AuthProvider>(context );
-    final set = Provider.of<SettingsProvider>(context);
+     final set = Provider.of<SettingsProvider>(context);
+    final langChange = Provider.of<LangProvider>(context);
+    final lang = context.select((LangProvider lang) => lang.langApi);
+    final isDark = context.select((SettingsProvider dark) => dark.isDark);
 
     return SafeArea(
       child: Scaffold(
@@ -34,7 +38,7 @@ class SettingsScreen extends StatelessWidget  {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: FutureBuilder(
-                  future: profile( set.langApi,),
+                  future: profile(lang),
                   builder:(BuildContext context,AsyncSnapshot<dynamic> snapshot){
                     return snapshot.data == null ? const Center(child: CircularProgressIndicator()) : Row(
                       children: [
@@ -49,11 +53,11 @@ class SettingsScreen extends StatelessWidget  {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            midTitle(snapshot.data['name']  ,textColor(context, set.isDark)),
+                            midTitle(snapshot.data['name']  ,textColor(context,  isDark)),
                             const SizedBox(
                               height: 10,
                             ),
-                            subTitle(snapshot.data['email'], textColor(context, set.isDark)),
+                            subTitle(snapshot.data['email'], textColor(context,  isDark)),
                           ],
                         ),
                       ],
@@ -68,9 +72,9 @@ class SettingsScreen extends StatelessWidget  {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    midText('Dark Mode' ,textColor(context, set.isDark)),
+                    midText('Dark Mode' ,textColor(context,  isDark)),
                     Switch(
-                        value: set.isDark,
+                        value:  isDark,
                         onChanged: (val) {
                           set.changeDarkMode();
                         } ,
@@ -84,11 +88,11 @@ class SettingsScreen extends StatelessWidget  {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    midText('Arabic' ,textColor(context, set.isDark)),
+                    midText('Arabic' ,textColor(context,  isDark)),
                     Switch(
-                        value: set.isArabic,
+                        value: langChange.isArabic,
                         onChanged: (val) {
-                         var x = context.locale = set.changeLang();
+                         var x = context.locale = langChange.changeLang();
                         } ,
                     ),
 
@@ -99,13 +103,13 @@ class SettingsScreen extends StatelessWidget  {
                   context: context,
                   text: 'Edit Profile',
                   image: 'images/Icon_Edit-Profile.svg',
-                onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));}, isDark: set.isDark,
+                onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));}, isDark: isDark,
               ),
               buildCardSettings(
                   context: context,
                   text: 'Order History',
                   image: 'images/Icon_History.svg',
-                  onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => OrderHistoryScreen()));}, isDark:  set.isDark
+                  onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => OrderHistoryScreen()));}, isDark:   isDark
 
               ),
 
@@ -114,18 +118,18 @@ class SettingsScreen extends StatelessWidget  {
                   context: context,
                   text: 'about us',
                   image: 'images/Icon_Alert.svg',
-                onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => AboutUsScreen()));}, isDark:  set.isDark
+                onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => AboutUsScreen()));}, isDark:   isDark
               ),
               buildCardSettings(
                   context: context,
                   text: 'FAQ',
                   image: 'images/Icon_Alert.svg',
-                  onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => FAQScreen()));}, isDark:  set.isDark
+                  onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => FAQScreen()));}, isDark:   isDark
               ),
               // log out
               GestureDetector(
                 onTap: () {
-                  logOut( set.langApi, token: auth.token);
+                  logOut(lang, token: auth.token);
                   SharedPref.removeData(key:'token' );
                   Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn()));
                 },
@@ -145,7 +149,7 @@ class SettingsScreen extends StatelessWidget  {
                         const SizedBox(
                           width: 20,
                         ),
-                        midText('Log Out', textColor(context, set.isDark)),
+                        midText('Log Out', textColor(context,  isDark)),
                       ],
                     ),
                   ),

@@ -1,23 +1,29 @@
 import 'package:ecommerceapp/model/category_model/category_details_model.dart';
+import 'package:ecommerceapp/model/home_model/banners_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-Future getBanners(langApi) async {
+import '../shared_pref.dart';
 
+Future   getBanners(langApi) async {
+  var lang =  SharedPref.getStringData(key:'lang') ;
+  print("lang$lang");
   var url = Uri.parse('https://student.valuxapps.com/api/banners');
-  var response = await http.get(url , headers: {'lang' : langApi});
+  var response = await http.get(url , headers: {'lang' :langApi});
   var responseBody = jsonDecode(response.body)['data'];
+  print("hi---->$responseBody");
   // print('responseBody: $responseBody');
-  // List <BannersModel> listDataModel= [];
+  //  List <BannersModel> listDataModel= [];
   //
+  // BannersModel c = BannersModel.fromMap(responseBody);
   // for (int i=0 ; i<responseBody.length ; i++) {
   //   listDataModel.add(BannersModel.fromMap(responseBody[i]));
   //
   // }
-  //
+
   // print('listDataModel: $listDataModel');
 
- // print('$responseBody');
+  // print('responseBody $c');
   return responseBody;
 }
 Future getAboutUs(langApi) async {
@@ -61,8 +67,9 @@ Future  getCategoriesDetails({langApi, id, token}) async {
   return responseBody;
 }
 Future getHomeData(langApi) async {
+
   var url = Uri.parse('https://student.valuxapps.com/api/home');
-  var response = await http.get(url , headers: {'lang' : langApi});
+  var response = await http.get(url , headers: {'lang' :langApi});
   var responseBody = jsonDecode(response.body)['data']['products'];
   return responseBody;
 }

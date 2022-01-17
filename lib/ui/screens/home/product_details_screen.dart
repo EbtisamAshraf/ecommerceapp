@@ -4,6 +4,7 @@ import 'package:ecommerceapp/controller/cart_controller/cart_api.dart';
 import 'package:ecommerceapp/controller/cart_controller/cart_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
 import 'package:ecommerceapp/controller/home_controller/home_api.dart';
+import 'package:ecommerceapp/controller/settings_controller/lang_provider.dart';
 import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
 import 'package:ecommerceapp/ui/screens/cart/cart_screen.dart';
 import 'package:ecommerceapp/ui/widgets/custom_button.dart';
@@ -23,16 +24,17 @@ class ProductDetails extends StatelessWidget {
   Widget build(BuildContext context) {
 
 
-    final set = Provider.of<SettingsProvider>(context);
+
     final auth = Provider.of<AuthProvider>(context );
-    final cart = Provider.of<CartProvider>(context);
+    final lang = context.select((LangProvider lang) => lang.langApi);
+    final isDark = context.select((SettingsProvider dark) => dark.isDark);
 
     return SafeArea(
       child: Scaffold(
         // appBar: AppBar(centerTitle: true, title:  midText( name, textColor( context, set.isDark, ),),),
         body:  SingleChildScrollView(
           child: FutureBuilder(
-        future: getProductDetails(langApi: set.langApi,token:  auth.token, id:id ),
+        future: getProductDetails(langApi: lang,token:  auth.token, id:id ),
     builder: (BuildContext context,  AsyncSnapshot<dynamic> snapshot) {
             return snapshot.data == null
                 ? const Center(child: CircularProgressIndicator())
@@ -62,11 +64,11 @@ class ProductDetails extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      midTitle(snapshot.data['name'].toString(),textColor(context, set.isDark) ,  ),
+                      midTitle(snapshot.data['name'].toString(),textColor(context,  isDark) ,  ),
                       const SizedBox(height: 20,),
-                      midText('Details',textColor(context, set.isDark) , ),
+                      midText('Details',textColor(context,  isDark) , ),
                       const SizedBox(height: 20,),
-                      detailsText(  snapshot.data['description'].toString(), textColor(context, set.isDark) ,),
+                      detailsText(  snapshot.data['description'].toString(), textColor(context, isDark) ,),
                       const SizedBox(height: 40,),
                       Padding(
                         padding: const EdgeInsets.all(20.0),
@@ -82,7 +84,7 @@ class ProductDetails extends StatelessWidget {
                             ),
                             defaultButton('Add' , padding: 40 , fun: (){
 
-                              addCart(langApi: set.langApi, productId: snapshot.data['id'].toString());
+                              addCart(langApi: lang, productId: snapshot.data['id'].toString());
                               Navigator.push(context, MaterialPageRoute(builder: (context)=> Cart()));
                               // Navigator.push(context, MaterialPageRoute(builder: (context)=> MainScreen()));
                               // cart.counter.add(1);

@@ -2,6 +2,7 @@ import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
 import 'package:ecommerceapp/controller/cart_controller/cart_api.dart';
 import 'package:ecommerceapp/controller/cart_controller/cart_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
+import 'package:ecommerceapp/controller/settings_controller/lang_provider.dart';
 import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
 import 'package:ecommerceapp/ui/screens/checkout/delivery_screen.dart';
 import 'package:ecommerceapp/ui/widgets/custom_button.dart';
@@ -22,8 +23,13 @@ class _CartState extends State<Cart> {
 
   @override
   Widget build(BuildContext context) {
-    final set = Provider.of<SettingsProvider>(context);
+
     final cart = Provider.of<CartProvider>(context);
+    final lang = context.select((LangProvider lang) => lang.langApi);
+    final isDark = context.select((SettingsProvider dark) => dark.isDark);
+
+
+
   late  var id;
   List priceProduct = [];
   var total = 0   ;
@@ -35,7 +41,7 @@ class _CartState extends State<Cart> {
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(children: [
-            FutureBuilder(future: getCart(langApi: set.langApi,),
+            FutureBuilder(future: getCart(langApi: lang,),
                 builder:  (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
 
 
@@ -90,7 +96,7 @@ class _CartState extends State<Cart> {
                                           children: [
                                             midText(
                                               snapshot.data[index]['product']['name'].toString(),
-                                              textColor(context, set.isDark),
+                                              textColor(context,  isDark),
                                             ),
                                             const SizedBox(
                                               height: 15,
@@ -107,20 +113,20 @@ class _CartState extends State<Cart> {
                                                       onPressed: () {
                                                         cart.addQuantity(int.parse(snapshot.data[index]['quantity'].toString()));
                                                        cart.inQuantity();
-                                                       updateCart(set.langApi,  quantity:cart.quantity.toString() ,id: id.toString() );
+                                                       updateCart(lang,  quantity:cart.quantity.toString() ,id: id.toString() );
 
 
                                                       },
                                                       child: const Icon(Icons.add)),
                                                   midText(
                                                     '${snapshot.data[index]['quantity']}',
-                                                    textColor(context, set.isDark),
+                                                    textColor(context,  isDark),
                                                   ),
                                                   TextButton(
                                                       onPressed: () {
                                                         cart.addQuantity(int.parse(snapshot.data[index]['quantity'].toString()));
                                                         cart.deQuantity();
-                                                        updateCart(set.langApi,  quantity:cart.quantity.toString() ,id: id.toString() );
+                                                        updateCart(lang,  quantity:cart.quantity.toString() ,id: id.toString() );
 
                                                       },
                                                       child: const Icon(Icons.remove)),
@@ -131,8 +137,8 @@ class _CartState extends State<Cart> {
                                       IconButton(
                                           onPressed: () {
                                             // cart.counter.removeAt(index);
-                                            addCart(langApi: set.langApi, productId: snapshot.data[index]['product']['id'].toString());
                                            setState(() {
+                                             addCart(langApi: lang, productId: snapshot.data[index]['product']['id'].toString());
 
                                            });
 

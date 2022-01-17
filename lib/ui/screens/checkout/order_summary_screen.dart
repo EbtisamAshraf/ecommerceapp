@@ -13,9 +13,11 @@ class OrderSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final set = Provider.of<SettingsProvider>(context);
+
+    final isDark = context.select((SettingsProvider dark) => dark.isDark);
+
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title:  midText( "Summary ", textColor( context, set.isDark, ),),),
+      appBar: AppBar(centerTitle: true, title:  midText( "Summary ", textColor( context, isDark, ),),),
        body: Padding(
          padding: const EdgeInsets.all(16.0),
          child: Column(
@@ -49,7 +51,7 @@ class OrderSummary extends StatelessWidget {
                                        Image.network('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Check_green_icon.svg/2048px-Check_green_icon.svg.png' ),
                                        Padding(
                                          padding: const EdgeInsets.all(8.0),
-                                         child: proText('DDGDFHFHFGHJFGHJ',textColor(context,set.isDark,),txtAlign: TextAlign.center ),
+                                         child: proText('DDGDFHFHFGHJFGHJ',textColor(context, isDark,),txtAlign: TextAlign.center ),
                                        ),
                                        Padding(
                                          padding: const EdgeInsets.all(8.0),
@@ -66,12 +68,12 @@ class OrderSummary extends StatelessWidget {
                  ),
                ),
              ),
-             largeText('Standard Delivery', textColor(context, set.isDark ,) ,txtAlign: TextAlign.start),
+             largeText('Standard Delivery', textColor(context,  isDark ,) ,txtAlign: TextAlign.start),
              const SizedBox(height: 10,),
              Row(
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
-                 Expanded(child: detailsTextL('21, Alex Davidson Avenue, Opposite Omegatron, Vicent Smith Quarters, Victoria Island, Lagos, Nigeria', textColor(context, set.isDark ,))),
+                 Expanded(child: detailsTextL('21, Alex Davidson Avenue, Opposite Omegatron, Vicent Smith Quarters, Victoria Island, Lagos, Nigeria', textColor(context,  isDark ,))),
                  const SizedBox(width: 50,),
                  const CircleAvatar(radius: 13,child: Icon(Icons.check),),
                ],

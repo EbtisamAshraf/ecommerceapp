@@ -2,6 +2,7 @@ import 'package:ecommerceapp/controller/auth_controller/auth_api.dart';
 import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
 import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
+import 'package:ecommerceapp/controller/settings_controller/lang_provider.dart';
 import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
 import 'package:ecommerceapp/ui/widgets/custom_button.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
@@ -23,18 +24,19 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthProvider>(context);
-     final set = Provider.of<SettingsProvider>(context);
+    final lang = context.select((LangProvider lang) => lang.langApi);
+    final isDark = context.select((SettingsProvider dark) => dark.isDark);
 
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: textColor(context, !set.isDark ,),
+          backgroundColor: textColor(context, !isDark ,),
           elevation: 0.0,
           leading: IconButton(
             onPressed:(){
               Navigator.pop(context);
             } ,
-            icon:  Icon(Icons.arrow_back , color: textColor(context, set.isDark ,),),),
+            icon:  Icon(Icons.arrow_back , color: textColor(context, isDark ,),),),
         ),
         body: Center(
           child: SingleChildScrollView(
@@ -43,7 +45,7 @@ class SignUp extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                      color: textColor(context, !set.isDark ,),
+                      color: textColor(context, !isDark ,),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Form(
@@ -53,11 +55,11 @@ class SignUp extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              title('Sign Up ' , textColor(context, set.isDark),),
+                              title('Sign Up ' , textColor(context, isDark),),
                                const SizedBox(
                                 height: 40,
                               ),
-                              subTitle('Name' , textColor(context, set.isDark)),
+                              subTitle('Name' , textColor(context, isDark)),
                               defaultTextFormField(controller: nameController ,
                                   keyboardType: TextInputType.name,
                                   onSaved: (value) => nameController.text = value ,
@@ -73,7 +75,7 @@ class SignUp extends StatelessWidget {
                               const SizedBox(
                                 height: 20,
                               ),
-                              subTitle('Email' ,textColor(context, set.isDark)),
+                              subTitle('Email' ,textColor(context, isDark)),
                               defaultTextFormField(controller: emailController,
                                 keyboardType: TextInputType.emailAddress,
                                 onSaved: (value) => emailController.text = value ,
@@ -89,13 +91,13 @@ class SignUp extends StatelessWidget {
                               const SizedBox(
                                 height: 20,
                               ),
-                              subTitle('Phone', textColor(context, set.isDark) ),
+                              subTitle('Phone', textColor(context, isDark) ),
                               Row(
                                 children: [
                                   Expanded(
                                     flex: 2,
                                       child:CountryCodePicker(
-                                        dialogBackgroundColor: textColor(context, !set.isDark ,),
+                                        dialogBackgroundColor: textColor(context, !isDark ,),
                                         initialSelection: 'eg',
                                         favorite: const ['+02','eg'],
                                         hideMainText: true,
@@ -128,7 +130,7 @@ class SignUp extends StatelessWidget {
                               const SizedBox(
                                 height: 20,
                               ),
-                              subTitle('Password', textColor(context, set.isDark)),
+                              subTitle('Password', textColor(context, isDark)),
                               defaultTextFormField(controller: passwordController,
                                 keyboardType: TextInputType.visiblePassword,
                                 obscure: true,
@@ -150,7 +152,7 @@ class SignUp extends StatelessWidget {
                                       child: defaultButton('SIGN UP' ,fun: (){
                                         formKey.currentState!.save();
                                         if (formKey.currentState!.validate()){
-                                          signUp( set.langApi, name:nameController.text ,
+                                          signUp(lang,  name:nameController.text ,
                                               email: emailController.text ,
                                               password: passwordController.text ,
                                               phone: auth.countryCode.toString() + phoneController.text

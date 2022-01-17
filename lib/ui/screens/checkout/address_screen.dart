@@ -21,9 +21,11 @@ class Address extends StatelessWidget {
   var countryController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final set = Provider.of<SettingsProvider>(context);
+
+    final isDark = context.select((SettingsProvider dark) => dark.isDark);
+
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title:  midText( "Checkout", textColor( context, set.isDark, ),),),
+      appBar: AppBar(centerTitle: true, title:  midText( "Checkout", textColor( context,  isDark, ),),),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: SingleChildScrollView(
@@ -42,7 +44,7 @@ class Address extends StatelessWidget {
                         afterLineStyle:  LineStyle(color: green, thickness: 3),
                         endChild:  Padding(
                           padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.10, vertical: 20),
-                          child:  proText('Delivery', textColor(context, set.isDark ,)),
+                          child:  proText('Delivery', textColor(context,  isDark ,)),
                         ),
                         isFirst: true,
 
@@ -54,7 +56,7 @@ class Address extends StatelessWidget {
                         beforeLineStyle:  LineStyle(color: green, thickness: 3),
                         endChild:  Padding(
                           padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.10, vertical:20),
-                          child: proText('Address', textColor(context, set.isDark ,)),
+                          child: proText('Address', textColor(context,  isDark ,)),
                         ),
                       ),
                       TimelineTile(
@@ -63,7 +65,7 @@ class Address extends StatelessWidget {
                         isLast: true,
                         endChild:  Padding(
                           padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.09, vertical:20),
-                          child:proText('Summer', textColor(context, set.isDark ,)),
+                          child:proText('Summer', textColor(context,  isDark ,)),
                         ),
                       ),
 
@@ -75,13 +77,13 @@ class Address extends StatelessWidget {
                   children: [
                     CircleAvatar(radius: 10,child: Icon(Icons.check  , size: 15,),),
                         SizedBox(width: 10,),
-                        detailsTextL('Billing address is the same as delivery address', textColor(context, set.isDark ,)),
+                        detailsTextL('Billing address is the same as delivery address', textColor(context,  isDark ,)),
                   ],
                 ),
                 const SizedBox(
                   height: 40,
                 ),
-                subTitle('Street 1' , textColor(context, set.isDark)),
+                subTitle('Street 1' , textColor(context,  isDark)),
                 defaultTextFormField(controller: streetController1 ,
                     keyboardType: TextInputType.name,
                     onSaved: (value) => streetController1.text = value ,
@@ -97,7 +99,7 @@ class Address extends StatelessWidget {
                 const SizedBox(
                   height: 40,
                 ),
-                subTitle('Street 2' , textColor(context, set.isDark)),
+                subTitle('Street 2' , textColor(context,  isDark)),
                 defaultTextFormField(controller: streetController2 ,
                     keyboardType: TextInputType.name,
                     onSaved: (value) => streetController2.text = value ,
@@ -113,7 +115,7 @@ class Address extends StatelessWidget {
                 const SizedBox(
                   height: 40,
                 ),
-                subTitle('City' , textColor(context, set.isDark)),
+                subTitle('City' , textColor(context,  isDark)),
                 defaultTextFormField(controller: cityController ,
                     keyboardType: TextInputType.name,
                     onSaved: (value) => cityController.text = value ,
@@ -136,7 +138,7 @@ class Address extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                        children: [
-                         subTitle('State' , textColor(context, set.isDark)),
+                         subTitle('State' , textColor(context,  isDark)),
                          defaultTextFormField(controller: stateController ,
                              keyboardType: TextInputType.name,
                              onSaved: (value) => stateController.text = value ,
@@ -160,7 +162,7 @@ class Address extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          subTitle('Country' , textColor(context, set.isDark)),
+                          subTitle('Country' , textColor(context,  isDark)),
                           defaultTextFormField(controller: countryController ,
                               keyboardType: TextInputType.name,
                               onSaved: (value) => countryController.text = value ,

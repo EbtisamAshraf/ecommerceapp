@@ -3,6 +3,7 @@ import 'package:ecommerceapp/controller/auth_controller/auth_api.dart';
 import 'package:ecommerceapp/controller/auth_controller/auth_provider.dart';
 import 'package:ecommerceapp/controller/my_provider.dart';
 import 'package:ecommerceapp/controller/fun.dart';
+import 'package:ecommerceapp/controller/settings_controller/lang_provider.dart';
 import 'package:ecommerceapp/controller/settings_controller/settings_provider.dart';
 import 'package:ecommerceapp/ui/screens/settings/camera_screen.dart';
 import 'package:ecommerceapp/ui/widgets/custom_text.dart';
@@ -18,6 +19,8 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final set = Provider.of<SettingsProvider>(context);
+    final lang = context.select((LangProvider lang) => lang.langApi);
+    final isDark = context.select((SettingsProvider dark) => dark.isDark);
 
     return Scaffold(
       key: scaffoldKey,
@@ -26,14 +29,14 @@ class ProfileScreen extends StatelessWidget {
             'My Profile',
             textColor(
               context,
-              set.isDark,
+               isDark,
             )),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: FutureBuilder(
-            future: profile(set.langApi, ),
+            future: profile(lang ),
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               return snapshot.data == null
                   ? const Center(child: CircularProgressIndicator())
@@ -103,9 +106,9 @@ class ProfileScreen extends StatelessWidget {
                             color: greyDark,
                           ),
                           title:
-                              midText('Name', textColor(context, set.isDark)),
+                              midText('Name', textColor(context,  isDark)),
                           subtitle: largeText(snapshot.data['name'],
-                              textColor(context, set.isDark)),
+                              textColor(context,  isDark)),
                           trailing: IconButton(
                             icon: const Icon(
                               Icons.edit,
@@ -118,7 +121,7 @@ class ProfileScreen extends StatelessWidget {
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    midTitle('Name' , textColor(context, set.isDark)),
+                                    midTitle('Name' , textColor(context,  isDark)),
                                     const SizedBox(height: 15,),
                                     defaultTextFormField(controller: nameController ,
                                         keyboardType: TextInputType.name,
@@ -153,9 +156,9 @@ class ProfileScreen extends StatelessWidget {
                             color: greyDark,
                           ),
                           title:
-                              midText('phone', textColor(context, set.isDark)),
+                              midText('phone', textColor(context,  isDark)),
                           subtitle: largeText(snapshot.data['phone'],
-                              textColor(context, set.isDark)),
+                              textColor(context,  isDark)),
                           trailing: IconButton(
                             icon: const Icon(
                               Icons.edit,
@@ -170,9 +173,9 @@ class ProfileScreen extends StatelessWidget {
                             color: greyDark,
                           ),
                           title:
-                              midText('Email', textColor(context, set.isDark)),
+                              midText('Email', textColor(context,  isDark)),
                           subtitle: largeText(snapshot.data['email'],
-                              textColor(context, set.isDark)),
+                              textColor(context,  isDark)),
                         ),
                       ],
                     );
