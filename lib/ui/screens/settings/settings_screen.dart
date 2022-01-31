@@ -34,6 +34,7 @@ class SettingsScreen extends StatelessWidget  {
         body: SingleChildScrollView(
           child: Column(
             children: [
+              const SizedBox(height: 30,),
               // profile data
               Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -67,48 +68,49 @@ class SettingsScreen extends StatelessWidget  {
                 ),
               ),
               // dark mode
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    midText('Dark Mode' ,textColor(context,  isDark)),
-                    Switch(
-                        value:  isDark,
-                        onChanged: (val) {
-                          set.changeDarkMode();
-                        } ,
-                    ),
-
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    midText('Arabic' ,textColor(context,  isDark)),
-                    Switch(
-                        value: langChange.isArabic,
-                        onChanged: (val) {
-                         var x = context.locale = langChange.changeLang();
-                        } ,
-                    ),
-
-                  ],
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(20.0),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //     children: [
+              //       midText('Dark Mode' ,textColor(context,  isDark)),
+              //       Switch(
+              //           value:  isDark,
+              //           onChanged: (val) {
+              //             set.changeDarkMode();
+              //           } ,
+              //       ),
+              //
+              //     ],
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.all(10.0),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //     children: [
+              //       midText('Arabic' ,textColor(context,  isDark)),
+              //       Switch(
+              //           value: langChange.isArabic,
+              //           onChanged: (val) {
+              //            var x = context.locale = langChange.changeLang();
+              //           } ,
+              //       ),
+              //
+              //     ],
+              //   ),
+              // ),
+              const SizedBox(height: 30,),
               buildCardSettings(
                   context: context,
                   text: 'Edit Profile',
-                  image: 'images/Icon_Edit-Profile.svg',
+                  icon: Icons.edit,
                 onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));}, isDark: isDark,
               ),
               buildCardSettings(
                   context: context,
                   text: 'Order History',
-                  image: 'images/Icon_History.svg',
+                  icon: Icons.history,
                   onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => OrderHistoryScreen()));}, isDark:   isDark
 
               ),
@@ -117,13 +119,13 @@ class SettingsScreen extends StatelessWidget  {
               buildCardSettings(
                   context: context,
                   text: 'about us',
-                  image: 'images/Icon_Alert.svg',
+                  icon: Icons.info,
                 onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => AboutUsScreen()));}, isDark:   isDark
               ),
               buildCardSettings(
                   context: context,
                   text: 'FAQ',
-                  image: 'images/Icon_Alert.svg',
+                  icon: Icons.question_answer ,
                   onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => FAQScreen()));}, isDark:   isDark
               ),
               // log out
@@ -144,10 +146,11 @@ class SettingsScreen extends StatelessWidget  {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
+                          padding:  EdgeInsets.symmetric(horizontal: 15),
                             margin: const EdgeInsets.symmetric(vertical: 3),
-                            child: SvgPicture.asset('images/Icon_Exit.svg')),
+                            child: const Icon(Icons.logout , color: green,)),
                         const SizedBox(
-                          width: 20,
+                          width: 8,
                         ),
                         midText('Log Out', textColor(context,  isDark)),
                       ],

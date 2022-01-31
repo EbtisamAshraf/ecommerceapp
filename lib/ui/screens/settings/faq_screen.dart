@@ -22,36 +22,39 @@ class FAQScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: midText('fAQ',textColor(context,  isDark ,)),centerTitle: true,),
-      body: FutureBuilder(
-         future: getFAQ(lang),
-          builder:(BuildContext context,AsyncSnapshot<dynamic> snapshot){
-          return snapshot.data == null ? const Center(child: CircularProgressIndicator()) :
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: snapshot.data.length,
-            itemBuilder:(context , index) => Accordion(
-              scrollIntoViewOfItems: ScrollIntoViewOfItems.none,
-                maxOpenSections: 1,
-                headerPadding:  const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
-                contentVerticalPadding: 10,
-                paddingListBottom: 5,
-                children: [
-                  AccordionSection(
-                    isOpen: false,
-                    leftIcon:  const Icon(Icons.compare_rounded, color: Colors.white),
-                    header: midText(snapshot.data[index]['question'],textColor(context,  isDark ,) ,txtAlign: TextAlign.center),
-                    content: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: midDetailsText(snapshot.data[index]['answer'], greyDark,txtAlign: TextAlign.end),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: FutureBuilder(
+           future: getFAQ(lang),
+            builder:(BuildContext context,AsyncSnapshot<dynamic> snapshot){
+            return snapshot.data == null ? const Center(child: CircularProgressIndicator()) :
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: snapshot.data.length,
+              itemBuilder:(context , index) => Accordion(
+                scrollIntoViewOfItems: ScrollIntoViewOfItems.none,
+                  maxOpenSections: 1,
+                  headerPadding:  const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+                  contentVerticalPadding: 10,
+                  paddingListBottom: 5,
+                  children: [
+                    AccordionSection(
+                      isOpen: false,
+                      leftIcon:  const Icon(Icons.compare_rounded, color: Colors.white),
+                      header: midText(snapshot.data[index]['question'],textColor(context,  isDark ,) ,txtAlign: TextAlign.center),
+                      content: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: midDetailsText(snapshot.data[index]['answer'], greyDark,),
+                      ),
                     ),
-                  ),
 
-                ],
-              ),
+                  ],
+                ),
 
-          );
+            );
     }
 
+        ),
       ),
     );
   }

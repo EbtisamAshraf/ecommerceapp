@@ -12,9 +12,9 @@ class HomeProvider with ChangeNotifier{
 
 
   //  home screen
-  int _current = 0;
+  int current = 0;
   onPageChangedCarousel (index){
-    _current = index;
+    current = 5;
     notifyListeners();
   }
 

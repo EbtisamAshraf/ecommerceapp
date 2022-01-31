@@ -36,13 +36,13 @@ class AboutUsScreen extends StatelessWidget {
                     largeText('about', green),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: midDetailsText(snapshot.data['about'], textColor(context,  isDark ,) ,txtAlign: TextAlign.end),
+                      child: midDetailsText(snapshot.data['about'], textColor(context,  isDark ,) ,),
                     ),
                     const SizedBox(height: 20,),
                     largeText('terms', green),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: midDetailsText(snapshot.data['terms'], textColor(context,  isDark),txtAlign: TextAlign.end ),
+                      child: midDetailsText(snapshot.data['terms'], textColor(context,  isDark), ),
                     ),
                     const SizedBox(height: 20,)
                   ],

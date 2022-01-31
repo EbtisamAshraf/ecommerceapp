@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
 
-    final home = context.select((HomeProvider home) => home.onPageChangedCarousel(5));
+    final home = context.select((HomeProvider home) => home.current);
     final lang = context.select((LangProvider lang) => lang.langApi);
     final isDark = context.select((SettingsProvider dark) => dark.isDark);
 
@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
-                height:  MediaQuery.of(context).size.height * 0.15,
+                height:  MediaQuery.of(context).size.height * 0.20,
                 child: FutureBuilder(
                   future: getBanners(lang),
                   builder:
@@ -46,25 +46,14 @@ class HomeScreen extends StatelessWidget {
                          ( snapshot.hasData) ? CarouselSlider.builder(
                            itemBuilder: (context, item, index) {
                              return  snapshot.data[item]['image'] == null ?
-                             Image.asset('images/NoImageFound.png')
+                             Image.asset('images/NoImageFound.png', fit:  BoxFit.cover,
+                                 width: MediaQuery.of(context).size.width,)
                                  :
-                             Image.network(snapshot.data[item]['image'],);
-                             // CachedNetworkImage(
-                             //   imageUrl:
-                             //   snapshot.data[item]['image'],
-                             //   // placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                             //   // errorWidget: (context, url, error) => Icon(Icons.error),
-                             //   fit: BoxFit.cover,
-                             //   width: MediaQuery.of(context).size.width,
-                             // )
-
-                             // CachedNetworkImage(
-                             //   imageUrl: "https://student.valuxapps.com/storage/uploads/banners/1619472351ITAM5.3bb51c97376281.5ec3ca8c1e8c5.jpg",
-                             //   placeholder: (context, url) => CircularProgressIndicator(),
-                             //   errorWidget: (context, url, error) => Icon(Icons.error),
-                             // )
-
-                            // ;
+                             FadeInImage.assetNetwork(
+                               placeholder: 'images/NoImageFound.png' ,
+                               image:  snapshot.data[item]['image'] ,
+                               fit: BoxFit.cover,
+                               width: MediaQuery.of(context).size.width,);
                            },
                            itemCount: snapshot.data.length,
                            carouselController: _controller,

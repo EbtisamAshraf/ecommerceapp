@@ -164,7 +164,6 @@ class _CartState extends State<Cart> {
         ),
         bottomSheet:   BottomSheet(onClosing: (){}, builder: (context){
           return Container(
-            color: Colors.white,
             height: 100,
             padding: const EdgeInsets.all(20),
             child: Row(

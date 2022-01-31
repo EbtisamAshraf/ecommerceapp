@@ -117,7 +117,7 @@ class ProfileScreen extends StatelessWidget {
                             onPressed: () {
                               scaffoldKey.currentState!.showBottomSheet((context) => Container(
                                 padding:const EdgeInsets.all(20) ,
-                                color: greyLight,
+
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [

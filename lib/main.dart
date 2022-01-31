@@ -16,7 +16,6 @@ import 'package:provider/provider.dart';
 import 'controller/cart_controller/cart_provider.dart';
 import 'controller/my_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
-
 import 'controller/settings_controller/lang_provider.dart';
 
 
@@ -102,6 +101,7 @@ class MyApp extends StatelessWidget {
               iconTheme: IconThemeData(color:Colors.white),
             actionsIconTheme: IconThemeData(color:Colors.white),
           ),
+          bottomSheetTheme: const BottomSheetThemeData(backgroundColor: Colors.black ,  ),
           floatingActionButtonTheme:
           const FloatingActionButtonThemeData(backgroundColor: Colors.green),
           bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -128,9 +128,9 @@ class MyApp extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('images/icon.png' ,fit: BoxFit.scaleDown,),
+                Image.asset('images/shop.png' ,fit: BoxFit.scaleDown,),
                  const SizedBox(height:30 ,),
-                 const Text('shop' , style: TextStyle(color: Colors.green, fontSize: 35 , fontWeight: FontWeight.bold)),
+                 // const Text('shop' , style: TextStyle(color: Colors.green, fontSize: 35 , fontWeight: FontWeight.bold)),
               ],
             ),
           ),
@@ -151,6 +151,8 @@ class MyApp extends StatelessWidget {
         pageTransitionType: PageTransitionType.fade,
       ),
     );
+
   }
+
 
 }

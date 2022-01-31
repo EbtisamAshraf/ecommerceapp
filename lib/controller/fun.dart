@@ -5,37 +5,44 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../constant.dart';
 
 
-buildCardSettings({required String text, required String image,required BuildContext context, GestureTapCallback? onTap , required bool isDark}) {
+
+buildCardSettings({required String text, required IconData icon,required BuildContext context, GestureTapCallback? onTap , required bool isDark}) {
   return GestureDetector(
     onTap: onTap,
     child: Container(
+
       height: MediaQuery.of(context).size.height * 0.07,
       margin: EdgeInsets.symmetric(
           horizontal: 20,
           vertical: MediaQuery.of(context).size.height * 0.01),
       child: Card(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-                margin: const EdgeInsets.symmetric(vertical: 3),
-                // color: Colors.lightGreen[300],
-                child: SvgPicture.asset(image)),
-            const SizedBox(
-              width: 20,
-            ),
-            midText(text , textColor(context, isDark)),
-            const Expanded(child: SizedBox()),
-            const Icon(
-              Icons.arrow_forward_ios,
-              size: 18,
-            ),
-            const SizedBox(
-              width: 10,
-            )
-          ],
+        child: Padding(
+          padding: const EdgeInsetsDirectional.only(start: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                  margin: const EdgeInsets.symmetric(vertical: 3),
+                  // color: Colors.lightGreen[300],
+                  child: Icon(icon , color: green,)
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              midText(text , textColor(context, isDark)),
+              const Expanded(child: SizedBox()),
+              const Icon(
+                Icons.arrow_forward_ios,
+                size: 18,
+              ),
+              const SizedBox(
+                width: 10,
+              )
+            ],
+          ),
         ),
       ),
     ),
